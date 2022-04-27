@@ -420,3 +420,7 @@ void sk(double *gdr, int tamHistograma, double delta_k, double rho, string dirSa
     
     
 }
+
+void distribucionAngulos(){
+    //aquí se hará todo lo de la distribución de ángulos
+}
