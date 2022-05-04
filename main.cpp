@@ -147,6 +147,7 @@ int main(int argc, char **argv) {//recibir como args
         
         //Creamos una instancia de la clase átomo
         Atomo atomo;//eliminarlos una vez que los saque del arreglo**
+        
         /*
          * A la instancia de átomo le asignamos las posiciones que se obtienen directamente de la trayectoria
          * Utilizamos stod para convertir de string a double
@@ -332,6 +333,15 @@ int main(int argc, char **argv) {//recibir como args
     //sk(gdr,tamHistograma,delta_k,rho,carpetaSalida,delta);
 
     std::cout << "Tengo el archivo" << std::endl;
+
+
+
+    //input_file.seekg(0);
+
+
+
+
+
     input_file.close();
     
     

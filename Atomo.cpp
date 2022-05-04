@@ -4,7 +4,7 @@
 
 
 #include "Atomo.h"
-
+#include "math.h"
 
 
 std::string Atomo::enviarMensaje(){
@@ -49,5 +49,14 @@ double Atomo::getPry(){
 }
 double Atomo::getPrz(){
     return this->prz;
+}
+
+double Atomo::distancia(double x, double y, double z){
+    double dif_x = x-this->rx;
+    double dif_y = y-this->ry;
+    double dif_z = z-this->rz;
+    double suma_cuadrados = (dif_x*dif_x)+(dif_y*dif_y)+(dif_z*dif_z);
+    double dist = sqrt(suma_cuadrados);
+    return dist;
 }
 

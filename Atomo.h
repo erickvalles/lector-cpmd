@@ -42,6 +42,7 @@ public:
     double getPrx();
     double getPry();
     double getPrz();
+    double distancia(double x, double y, double z);
 };
 
 

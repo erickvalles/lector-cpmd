@@ -54,6 +54,7 @@ void histograma(vector<Atomo> atomos,int n_atomos, double delta, vector<double> 
     //vector<int> hist(tamanio,0);
     //TimerBaseChrono tc("comienza histograma");
     //tc.Start();
+    vector<Atomo> vecinos;
     
     int no_cumplen = 0;
     double distancias[3] = {0,0,0};
@@ -63,8 +64,7 @@ void histograma(vector<Atomo> atomos,int n_atomos, double delta, vector<double> 
         for ( int it2=iteracion+1;it2<n_atomos; it2++) {
             //std::cout << "Lectura   "<< i << std::endl;
             
-
-            
+                      
             calcula_dist_componentes(distancias,atomos[iteracion],atomos[it2],boxSize,mitadCaja);
 
             // std::cout << "Lectura   "<< j << std::endl;
