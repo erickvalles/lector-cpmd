@@ -20,7 +20,8 @@ using std::ifstream;
 * Encontrar la función de estructura estático final
 * añadir el fscanf
 */
-
+int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string carpetaSalida, std::string file, int prueba);
+int dist_angulos();
 
 int main(int argc, char **argv) {//recibir como args
    
@@ -50,8 +51,7 @@ int main(int argc, char **argv) {//recibir como args
     }
     cout << "el directorio de salida es: "<<carpetaSalida << endl;
     
-    //El archivo del que leeremos las trayectorias
-    ifstream input_file;
+   
     
     
     //pediremos también el directorio para las salidas
@@ -67,7 +67,35 @@ int main(int argc, char **argv) {//recibir como args
     
 
     
-    // Se calcula la mitad de la caja aquí mismo por razones de rendimiento. 
+   
+
+    //menú
+    int opc;
+    cout << "¿Qué deseas calcular?"<<endl;
+    cout << "1.- g(r) \n2.- ADF" << endl;
+
+    std::cin >> opc;
+    if(opc == 1){
+        goto gdr;
+    }else{
+        goto angulos;
+    }
+    
+
+    //Se lee el archivo línea por línea y se almacena en la variable trayectoria
+    gdr:
+        gdr_main(boxSize,numeroAtomos,tamHistograma,carpetaSalida,file,0);
+    angulos:
+        dist_angulos();
+    
+
+    return 0;
+}
+
+
+int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string carpetaSalida, std::string file, int prueba){
+     
+     // Se calcula la mitad de la caja aquí mismo por razones de rendimiento. 
     double mitadCaja = boxSize/2;
     
     
@@ -78,7 +106,8 @@ int main(int argc, char **argv) {//recibir como args
     //
     double rho = numeroAtomos/(boxSize*boxSize*boxSize);
     cout << "el valor de rho:" << rho << endl;
-    
+     //El archivo del que leeremos las trayectorias
+    ifstream input_file;
     
     //Todos los array:
     
@@ -99,7 +128,7 @@ int main(int argc, char **argv) {//recibir como args
     //Si no se logra abrir el archivo, mostramos un mensaje de error
     if(!input_file){
         std::cerr << "No se pudo abrir el archivo" << std::endl;
-        return -1;
+        return 0;
     }
 
     //Se utiliza un vector de objetos del tipo átomo
@@ -136,8 +165,6 @@ int main(int argc, char **argv) {//recibir como args
         // de lo contrario, se crea un archivo de prueba (que es más pequeño)
         out_posiciones.open(carpetaSalida+"periodic_pos_prueba.txt");
     }
-
-    //Se lee el archivo línea por línea y se almacena en la variable trayectoria
     while (std::getline(input_file,trayectoria)){
         //se crea un vector llamado partes, ya que cada línea la dividiremos por los espacios en blanco que contiene
         vector<string> partes;
@@ -343,8 +370,10 @@ int main(int argc, char **argv) {//recibir como args
 
 
     input_file.close();
-    
-    
+}
+
+int dist_angulos(){
+    cout << "Se calcularán los ángulos" <<endl;
 
     return 0;
 }
