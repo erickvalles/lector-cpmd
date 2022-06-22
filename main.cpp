@@ -21,7 +21,7 @@ using std::ifstream;
 * añadir el fscanf
 */
 int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string carpetaSalida, std::string file, int prueba);
-int dist_angulos();
+int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file);
 
 int main(int argc, char **argv) {//recibir como args
    
@@ -86,7 +86,7 @@ int main(int argc, char **argv) {//recibir como args
     gdr:
         gdr_main(boxSize,numeroAtomos,tamHistograma,carpetaSalida,file,0);
     angulos:
-        dist_angulos();
+        dist_angulos(numeroAtomos,carpetaSalida,file);
     
 
     return 0;
@@ -372,8 +372,117 @@ int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string ca
     input_file.close();
 }
 
-int dist_angulos(){
+int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file){
     cout << "Se calcularán los ángulos" <<endl;
+     // Se calcula la mitad de la caja aquí mismo por razones de rendimiento. 
+    //double mitadCaja = boxSize/2;
+    
+    
+    // Este factor sirve para convertir de unidades atómicas a Angstroms
+    const double factor_distancias =  0.52917720859;
+    // Este factor sirve para convertir de unidades átomicas/us a Angstroms/us
+    const double factor_velocidades = 21876.912541;
+    //
+    
+     //El archivo del que leeremos las trayectorias
+    ifstream input_file;
+    
+   
+    
+    vector<double> *gofr = {nullptr};
+
+    //abriremos el archivo de la trayectoria en modo lectura
+    input_file.open(file);
+    
+    int contador;
+
+    //Si no se logra abrir el archivo, mostramos un mensaje de error
+    if(!input_file){
+        std::cerr << "No se pudo abrir el archivo" << std::endl;
+        return 0;
+    }
+
+    //Se utiliza un vector de objetos del tipo átomo
+    vector<Atomo> *atomos = {nullptr};
+    //Se reserva memoria para contener los átomos involucrados en la simulación
+    atomos = new vector<Atomo>[numeroAtomos];
+
+   
+    
+    // cuando esta variable llegue a n_atomos se reiniciará y el arreglo de átomos se vaciará
+    int n_atoms = 0;
+    //es una variable que nos sirve para saber si se están recorriendo todas las trayectorias
+    int trayectorias = 0;
+    // es una variable para saber cuántas veces se llama a la función histograma
+    int veces_histograma = 0;
+    
+    // Se crea una variable que leerá todo un renglón del archivo
+    string trayectoria;
+    //aquí, creo un archivo para ver qué posiciones periódicas son las que se obtuvieron (para fines de pruebas)
+    std::ofstream out_posiciones;
+    //Si no es una prueba, se crea un archivo "definitivo"
+    
+        out_posiciones.open(carpetaSalida+"periodic_pos.txt");
+    
+        // de lo contrario, se crea un archivo de prueba (que es más pequeño)
+    while (std::getline(input_file,trayectoria)){
+        //se crea un vector llamado partes, ya que cada línea la dividiremos por los espacios en blanco que contiene
+        vector<string> partes;
+        //dividimos la variable trayectoria por espacios y la almacenamos en el vector partes utilizando la librería boost
+        boost::split(partes,trayectoria, boost::is_any_of(" "), boost::token_compress_on);
+
+        
+        //Creamos una instancia de la clase átomo
+        Atomo atomo;//eliminarlos una vez que los saque del arreglo**
+        
+        /*
+         * A la instancia de átomo le asignamos las posiciones que se obtienen directamente de la trayectoria
+         * Utilizamos stod para convertir de string a double
+         * Convertimos las posiciones a angstroms al asignarlas
+         * */
+        atomo.setPos(stod(partes[2])*factor_distancias,stod(partes[3])*factor_distancias,stod(partes[4])*factor_distancias);
+        /*
+         * A la instancia de átomo le asignamos las posiciones que se obtienen directamente de la trayectoria
+         * Utilizamos stod para convertir de string a double
+         * Convertimos las velocidades */
+        atomo.setSpeeds(stod(partes[5])*factor_velocidades,stod(partes[6])*factor_velocidades,stod(partes[7])*factor_velocidades);
+
+        //La propiedad especie se asignará desde la interfaz gráfica también
+        //Sirve para identificar qué tipo de átomo estamos utilizando
+        atomo.setEspecie(1);
+        //Se crea un arreglo de doubles que almacenará las posiciones periódicas para el átomo
+        double periodics[3] = {0.0,0.0,0.0};
+        /*
+         * Se llama al método que calcula las posiciones periódicas, se le pasan las posiciones en x,y,z, el tamaño de la caja
+         * y la mitad de la caja para calcularlas
+         * */
+        
+        
+        
+        /*
+         * Como se pasó el arreglo periodics por referencia, podemos obtener las posiciones perióicas del mismo arreglo que mandamos
+         * */
+         
+         
+        atomo.setPeriodics(periodics[0],periodics[1],periodics[2]);
+
+        /*
+         * Una vez que tenemos el átomo con las pocisiones periódicas*/
+        (*atomos).push_back(atomo);
+        n_atoms++;
+        if(n_atoms==numeroAtomos){
+           //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
+           //aquí debo llamar a la función que calcule la lista de vecinos
+           (*atomos).clear();
+            n_atoms = 0;
+
+        }
+        trayectorias++;
+
+
+        atomo.enviarMensaje();
+       // free(line);
+    }
 
     return 0;
 }

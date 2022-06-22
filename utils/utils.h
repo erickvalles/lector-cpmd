@@ -41,6 +41,6 @@ double integral_simple(double a, double b);
 
 void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, double rho, string dirSalida, double delta);
 void sk(double *gdr, int tamHistograma, double delta_k, double rho, string dirSalida, double delta);
-void distribucionAngulos();
+void distribucionAngulos(int numeroAtomos, std::string carpetaSalida, std::string file);
 
 #endif //CPF_UTILS_H
