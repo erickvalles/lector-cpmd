@@ -41,7 +41,8 @@ int main(int argc, char **argv) {//recibir como args
         // Se pide el tamaño del histograma que se utilizará
         tamHistograma = 512;
         carpetaSalida = "/home/erick/data/salidas/";
-        file = "/home/erick/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
+        //file = "/home/erick/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
+        file = "/home/erick/reduced.cpmd";
     }else{
         boxSize = std::stod(argv[1]);
         numeroAtomos = std::stoi(argv[2]);
@@ -473,6 +474,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file){
         if(n_atoms==numeroAtomos){
            //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
            //aquí debo llamar a la función que calcule la lista de vecinos
+           listaVecinos(*atomos,n_atoms,3.5);
            (*atomos).clear();
             n_atoms = 0;
 

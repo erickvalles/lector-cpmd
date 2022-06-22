@@ -421,6 +421,21 @@ void sk(double *gdr, int tamHistograma, double delta_k, double rho, string dirSa
     
 }
 
-void distribucionAngulos(){
-    //aquí se hará todo lo de la distribución de ángulos
+float distanciaAtomos(Atomo a1, Atomo a2){
+    return a1.distancia(a2.getrx(),a2.getry(),a2.getrz());
+}
+
+void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min){
+    
+    for(int i=0; i<n_atomos-1;i++){
+        for(int j=0; j<n_atomos-1;j++){
+            if(i!=j){
+                if(distanciaAtomos(atomos[i],atomos[j])<r_min){
+                    std::cout << "atomo "<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
+                }else{
+                    //std::cout << "No lo metemos a la lista" << std::endl;
+                }
+            }
+        }
+    }
 }
