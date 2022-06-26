@@ -426,7 +426,7 @@ float distanciaAtomos(Atomo a1, Atomo a2){
 }
 
 void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min){
-    
+    //file:///D:/tesis/libros/computer_simultation_of_liquids.pdf pp. 162
     for(int i=0; i<n_atomos-1;i++){
         for(int j=0; j<n_atomos-1;j++){
             if(i!=j){
