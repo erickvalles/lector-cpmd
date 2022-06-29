@@ -474,7 +474,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file){
         if(n_atoms==numeroAtomos){
            //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
            //aquí debo llamar a la función que calcule la lista de vecinos
-           listaVecinos(*atomos,n_atoms,3.5);
+           listaVecinos(*atomos,n_atoms,3.2);
            (*atomos).clear();
             n_atoms = 0;
 
