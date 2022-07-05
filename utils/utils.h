@@ -42,5 +42,5 @@ double integral_simple(double a, double b);
 void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, double rho, string dirSalida, double delta);
 void sk(double *gdr, int tamHistograma, double delta_k, double rho, string dirSalida, double delta);
 void distribucionAngulos(int numeroAtomos, std::string carpetaSalida, std::string file);
-void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min);
+void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize);
 #endif //CPF_UTILS_H

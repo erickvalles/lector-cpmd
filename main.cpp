@@ -21,7 +21,7 @@ using std::ifstream;
 * añadir el fscanf
 */
 int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string carpetaSalida, std::string file, int prueba);
-int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file);
+int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, double boxSize);
 
 int main(int argc, char **argv) {//recibir como args
    
@@ -41,8 +41,8 @@ int main(int argc, char **argv) {//recibir como args
         // Se pide el tamaño del histograma que se utilizará
         tamHistograma = 512;
         carpetaSalida = "/home/erick/data/salidas/";
-        //file = "/home/erick/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
-        file = "/home/erick/reduced.cpmd";
+        file = "/home/erick/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
+        //file = "/home/erick/reduced.cpmd";
     }else{
         boxSize = std::stod(argv[1]);
         numeroAtomos = std::stoi(argv[2]);
@@ -87,7 +87,7 @@ int main(int argc, char **argv) {//recibir como args
     gdr:
         gdr_main(boxSize,numeroAtomos,tamHistograma,carpetaSalida,file,0);
     angulos:
-        dist_angulos(numeroAtomos,carpetaSalida,file);
+        dist_angulos(numeroAtomos,carpetaSalida,file, boxSize);
     
 
     return 0;
@@ -373,7 +373,7 @@ int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string ca
     input_file.close();
 }
 
-int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file){
+int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, double boxSize){
     cout << "Se calcularán los ángulos" <<endl;
      // Se calcula la mitad de la caja aquí mismo por razones de rendimiento. 
     //double mitadCaja = boxSize/2;
@@ -431,7 +431,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file){
         vector<string> partes;
         //dividimos la variable trayectoria por espacios y la almacenamos en el vector partes utilizando la librería boost
         boost::split(partes,trayectoria, boost::is_any_of(" "), boost::token_compress_on);
-
+        double mitadCaja = boxSize/2;
         
         //Creamos una instancia de la clase átomo
         Atomo atomo;//eliminarlos una vez que los saque del arreglo**
@@ -474,7 +474,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file){
         if(n_atoms==numeroAtomos){
            //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
            //aquí debo llamar a la función que calcule la lista de vecinos
-           listaVecinos(*atomos,n_atoms,3.2);
+           listaVecinos(*atomos,n_atoms,3.2,mitadCaja, boxSize);
            (*atomos).clear();
             n_atoms = 0;
 
