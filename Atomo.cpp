@@ -5,6 +5,7 @@
 
 #include "Atomo.h"
 #include "math.h"
+#include <map>
 
 
 std::string Atomo::enviarMensaje(){
@@ -49,6 +50,18 @@ double Atomo::getPry(){
 }
 double Atomo::getPrz(){
     return this->prz;
+}
+
+int Atomo::getEspecie() const{
+    return this->especie;
+}
+
+void Atomo::setId(int id){
+    this->id = id;
+}
+
+int Atomo::getId() const{
+    return this->id;
 }
 
 double Atomo::distancia(double x, double y, double z){

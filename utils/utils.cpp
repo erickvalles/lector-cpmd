@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iomanip>
 #include </usr/include/fftw3.h>
+#include <map>
 
 void calculaPosicionesPeriodicas(double *posPeriodicas,const double rx, const double ry, const double rz, double boxSize, double halfBox){
 
@@ -425,7 +426,7 @@ float distanciaAtomos(Atomo a1, Atomo a2){
     return a1.distancia(a2.getrx(),a2.getry(),a2.getrz());
 }
 
-void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize){
+void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos){
     //file:///D:/tesis/libros/computer_simultation_of_liquids.pdf pp. 162
     for(int i=0; i<n_atomos-1;i++){
         for(int j=0; j<n_atomos-1;j++){
@@ -437,12 +438,14 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 if(distancia<mitadCaja){
                     if(distancia<r_min){
                         std::cout << "atomo "<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
+                        vecinos[atomo1].push_back(atomo2);
                     }else{
                         atomo1.setPeriodics(atomo1.getPrx()+boxSize, atomo1.getPry()+boxSize, atomo1.getPrz()+boxSize);
                         distancia = distanciaAtomos(atomo1,atomo2);
                         distancia = distancia-mitadCaja;
                         if(distancia<r_min){
                             std::cout << "atomo imagen"<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
+                            vecinos[atomo1].push_back(atomo2);
                         }
 
                     }
@@ -451,5 +454,9 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 }
             }
         }
+    }
+    std::map<Atomo,vector<Atomo>>::iterator it;
+    for(it=vecinos.begin(); it!=vecinos.end(); it++){
+        std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
     }
 }

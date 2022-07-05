@@ -6,6 +6,7 @@
 #define CPF_ATOMO_H
 #include <string>
 #include <vector>
+#include <map>
 /**
  * Agregar vector velocidades
  * Agregar propiedad "especie"->string <- qué tipo de átomo
@@ -15,6 +16,7 @@ using std::vector;
 using std::string;
 class Atomo{
 private:
+    int id = 0;
     //double* pos;
     double rx = 0;//Angstroms
     double ry = 0;//Angstroms
@@ -37,12 +39,18 @@ public:
     double getry();
     double getrz();
     void setEspecie(int especie);
+    int getEspecie() const;
     void setSpeeds(double vx, double vy, double vz);
     void setPeriodics(double prx, double pry, double prz);
     double getPrx();
     double getPry();
     double getPrz();
     double distancia(double x, double y, double z);
+    void setId(int id);
+    int getId() const;
+    bool operator<(const Atomo& b) const{
+        return id < b.id;
+    }
 };
 
 

@@ -10,6 +10,7 @@
 #include <boost/algorithm/string.hpp>
 #include <iomanip>
 #include "cmath"
+#include <map>
 
 using std::vector;
 using std::string;
@@ -33,6 +34,7 @@ int main(int argc, char **argv) {//recibir como args
     int tamHistograma;
     string carpetaSalida;
     string file;
+    
     if(argc < 2){
         // Es el tamaño de la caja de simulación que se utilizará
         boxSize = 22.3797;
@@ -41,8 +43,8 @@ int main(int argc, char **argv) {//recibir como args
         // Se pide el tamaño del histograma que se utilizará
         tamHistograma = 512;
         carpetaSalida = "/home/erick/data/salidas/";
-        file = "/home/erick/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
-        //file = "/home/erick/reduced.cpmd";
+        //file = "/home/erick/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
+        file = "/home/erick/reduced.cpmd";
     }else{
         boxSize = std::stod(argv[1]);
         numeroAtomos = std::stoi(argv[2]);
@@ -425,6 +427,8 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
     
         out_posiciones.open(carpetaSalida+"periodic_pos.txt");
     
+    std::map<Atomo,vector<Atomo>> vecinos;
+    
         // de lo contrario, se crea un archivo de prueba (que es más pequeño)
     while (std::getline(input_file,trayectoria)){
         //se crea un vector llamado partes, ya que cada línea la dividiremos por los espacios en blanco que contiene
@@ -451,6 +455,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
         //La propiedad especie se asignará desde la interfaz gráfica también
         //Sirve para identificar qué tipo de átomo estamos utilizando
         atomo.setEspecie(1);
+        atomo.setId(n_atoms);
         //Se crea un arreglo de doubles que almacenará las posiciones periódicas para el átomo
         double periodics[3] = {0.0,0.0,0.0};
         /*
@@ -474,7 +479,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
         if(n_atoms==numeroAtomos){
            //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
            //aquí debo llamar a la función que calcule la lista de vecinos
-           listaVecinos(*atomos,n_atoms,3.2,mitadCaja, boxSize);
+           listaVecinos(*atomos,n_atoms,3.2,mitadCaja, boxSize, vecinos);
            (*atomos).clear();
             n_atoms = 0;
 
