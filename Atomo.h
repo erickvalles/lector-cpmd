@@ -51,6 +51,8 @@ public:
     bool operator<(const Atomo& b) const{
         return id < b.id;
     }
+    double dotProduct(Atomo &b);
+    double absolute();
 };
 
 

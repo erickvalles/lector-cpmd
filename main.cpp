@@ -463,7 +463,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
          * y la mitad de la caja para calcularlas
          * */
         
-        
+        calculaPosicionesPeriodicas(periodics, atomo.getrx(), atomo.getry(), atomo.getrz(), boxSize,mitadCaja);
         
         /*
          * Como se pasó el arreglo periodics por referencia, podemos obtener las posiciones perióicas del mismo arreglo que mandamos

@@ -63,6 +63,15 @@ void Atomo::setId(int id){
 int Atomo::getId() const{
     return this->id;
 }
+double Atomo::dotProduct(Atomo &b){
+    return this->prx*b.prx + this->pry*b.pry + this->prz*b.prz;
+}
+
+double Atomo::absolute(){
+    return sqrt(this->prx*this->prx + this->pry*this->pry + this->prz*this->prz);
+}
+
+
 
 double Atomo::distancia(double x, double y, double z){
     double dif_x = x-this->rx;

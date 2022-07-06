@@ -437,14 +437,14 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
             if(i!=j){
                 if(distancia<mitadCaja){
                     if(distancia<r_min){
-                        std::cout << "atomo "<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
+                        //std::cout << "atomo "<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
                         vecinos[atomo1].push_back(atomo2);
                     }else{
-                        atomo1.setPeriodics(atomo1.getPrx()+boxSize, atomo1.getPry()+boxSize, atomo1.getPrz()+boxSize);
+                        atomo2.setPeriodics(atomo2.getPrx()+boxSize, atomo2.getPry()+boxSize, atomo2.getPrz()+boxSize);
                         distancia = distanciaAtomos(atomo1,atomo2);
                         distancia = distancia-mitadCaja;
                         if(distancia<r_min){
-                            std::cout << "atomo imagen"<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
+                            //std::cout << "atomo imagen"<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
                             vecinos[atomo1].push_back(atomo2);
                         }
 
@@ -457,6 +457,15 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
     }
     std::map<Atomo,vector<Atomo>>::iterator it;
     for(it=vecinos.begin(); it!=vecinos.end(); it++){
+        Atomo a1 = it->first;
+        
         std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
+        for (int i=0; i<it->second.size(); i++){
+            Atomo a1 = it->second[i];
+            Atomo a2 = it->second[i+1];
+            double angle = acos(a1.dotProduct(a2)/(a1.absolute()*a2.absolute()));
+            std::cout << "angulo " << angle << std::endl;
+        }
+        
     }
 }
