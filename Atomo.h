@@ -53,6 +53,9 @@ public:
     }
     double dotProduct(Atomo &b);
     double absolute();
+    //obtain a new vector from the difference between two atoms
+    vector<double> vectorDifference(Atomo &b);
+
 };
 
 

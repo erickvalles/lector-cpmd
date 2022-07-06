@@ -71,6 +71,13 @@ double Atomo::absolute(){
     return sqrt(this->prx*this->prx + this->pry*this->pry + this->prz*this->prz);
 }
 
+vector <double> Atomo::vectorDifference(Atomo &b){
+    vector <double> result;
+    result.push_back(this->prx - b.prx);
+    result.push_back(this->pry - b.pry);
+    result.push_back(this->prz - b.prz);
+    return result;
+}
 
 
 double Atomo::distancia(double x, double y, double z){

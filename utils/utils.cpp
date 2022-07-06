@@ -463,9 +463,20 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
         for (int i=0; i<it->second.size(); i++){
             Atomo a1 = it->second[i];
             Atomo a2 = it->second[i+1];
-            double angle = acos(a1.dotProduct(a2)/(a1.absolute()*a2.absolute()));
-            std::cout << "angulo " << angle << std::endl;
+            vector<double> v1 = a1.vectorDifference(a2);
+            vector<double> v2 = a1.vectorDifference(it->second[i+2]);
+            //calcular el producto punto de los vectores v1 y v2
+            double productoPunto = v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
+            //calcular el modulo del vector v1
+            double moduloV1 = sqrt(v1[0]*v1[0] + v1[1]*v1[1] + v1[2]*v1[2]);
+            //calcular el modulo del vector v2
+            double moduloV2 = sqrt(v2[0]*v2[0] + v2[1]*v2[1] + v2[2]*v2[2]);
+            //calcular el angulo entre los vectores v1 y v2
+            double angulo = acos(productoPunto/(moduloV1*moduloV2));
+            
+            std::cout << "angulo " << angulo << std::endl;
         }
         
     }
+
 }
