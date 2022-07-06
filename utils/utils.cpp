@@ -439,15 +439,15 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                     if(distancia<r_min){
                         //std::cout << "atomo "<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
                         vecinos[atomo1].push_back(atomo2);
-                    }else{
-                        atomo2.setPeriodics(atomo2.getPrx()+boxSize, atomo2.getPry()+boxSize, atomo2.getPrz()+boxSize);
-                        distancia = distanciaAtomos(atomo1,atomo2);
-                        distancia = distancia-mitadCaja;
-                        if(distancia<r_min){
-                            //std::cout << "atomo imagen"<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
-                            vecinos[atomo1].push_back(atomo2);
-                        }
+                    }
 
+                }else{
+                    atomo2.setPeriodics(atomo2.getPrx()+boxSize, atomo2.getPry()+boxSize, atomo2.getPrz()+boxSize);
+                    distancia = distanciaAtomos(atomo1,atomo2);
+                        
+                    if(distancia<r_min){
+                        //std::cout << "atomo imagen"<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
+                        vecinos[atomo1].push_back(atomo2);
                     }
                 
             
