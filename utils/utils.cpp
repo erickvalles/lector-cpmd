@@ -426,7 +426,7 @@ float distanciaAtomos(Atomo a1, Atomo a2){
     return a1.distancia(a2.getrx(),a2.getry(),a2.getrz());
 }
 
-void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos){
+void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos, vector<double> *histAngulos, double deltaAng){
     //file:///D:/tesis/libros/computer_simultation_of_liquids.pdf pp. 162
     for(int i=0; i<n_atomos-1;i++){
         for(int j=0; j<n_atomos-1;j++){
@@ -458,23 +458,41 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
     std::map<Atomo,vector<Atomo>>::iterator it;
     for(it=vecinos.begin(); it!=vecinos.end(); it++){
         Atomo a1 = it->first;
+        //obtener los vecinos de a1
+        vector<Atomo> vecinos = it->second;
         
-        std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
-        for (int i=0; i<it->second.size(); i++){
-            Atomo a1 = it->second[i];
-            Atomo a2 = it->second[i+1];
-            vector<double> v1 = a1.vectorDifference(a2);
-            vector<double> v2 = a1.vectorDifference(it->second[i+2]);
-            //calcular el producto punto de los vectores v1 y v2
-            double productoPunto = v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
-            //calcular el modulo del vector v1
-            double moduloV1 = sqrt(v1[0]*v1[0] + v1[1]*v1[1] + v1[2]*v1[2]);
-            //calcular el modulo del vector v2
-            double moduloV2 = sqrt(v2[0]*v2[0] + v2[1]*v2[1] + v2[2]*v2[2]);
-            //calcular el angulo entre los vectores v1 y v2
-            double angulo = acos(productoPunto/(moduloV1*moduloV2));
+        //std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
+        for (int i=0; i<vecinos.size(); i++){
+            //iterar después del atomo actual
+            Atomo vFijo = vecinos[i];
+            vector<double> v1 = a1.vectorDifference(vFijo);
+            for(int j=i+1; j<vecinos.size(); j++){
+                
+                Atomo a2 = vecinos[j];
+                
+                vector<double> v2 = a1.vectorDifference(a2);
+                //calcular el producto punto de los vectores v1 y v2
+                double productoPunto = v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
+                //calcular el modulo del vector v1
+                double moduloV1 = sqrt(v1[0]*v1[0] + v1[1]*v1[1] + v1[2]*v1[2]);
+                //calcular el modulo del vector v2
+                double moduloV2 = sqrt(v2[0]*v2[0] + v2[1]*v2[1] + v2[2]*v2[2]);
+                //calcular el angulo entre los vectores v1 y v2
+                double anguloRad = acos(productoPunto/(moduloV1*moduloV2));
+                //convertir el angulo a grados
+                double anguloGrad = anguloRad*180/M_PI;
+                int pos = 0;
+                
+                pos = anguloGrad/deltaAng;
+                //imprimir la posicion en la que quedará
+                //std::cout << "Pos = "<< anguloGrad << "/" << deltaAng <<"="<<pos << std::endl;
+                //incrementar esa posicion en el histograma	
+                (*histAngulos)[pos]+=1;
+                //imprimir cuantos elementos en esa posicion hay
+                //std::cout << "Histograma["<<pos<<"]="<<(*histAngulos)[pos]<<std::endl;
+            }
             
-            std::cout << "angulo " << angulo << std::endl;
+            
         }
         
     }

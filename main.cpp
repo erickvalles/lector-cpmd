@@ -43,8 +43,8 @@ int main(int argc, char **argv) {//recibir como args
         // Se pide el tamaño del histograma que se utilizará
         tamHistograma = 512;
         carpetaSalida = "/home/erick/data/salidas/";
-        //file = "/home/erick/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
-        file = "/home/erick/reduced.cpmd";
+        file = "/home/erick/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
+        //file = "/home/erick/reduced.cpmd";
     }else{
         boxSize = std::stod(argv[1]);
         numeroAtomos = std::stoi(argv[2]);
@@ -78,6 +78,7 @@ int main(int argc, char **argv) {//recibir como args
     cout << "1.- g(r) \n2.- ADF" << endl;
 
     std::cin >> opc;
+    //opc = 2;
     if(opc == 1){
         goto gdr;
     }else{
@@ -418,15 +419,15 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
     int trayectorias = 0;
     // es una variable para saber cuántas veces se llama a la función histograma
     int veces_histograma = 0;
+    //crear un vector para almacenar el histograma de angulos
     
+    double tamHistAngulos = 400.0;
+    double deltaAng = 180.0/tamHistAngulos;
+    std::cout << deltaAng << endl;
+    vector<double> *histAngulos = {nullptr};
+    histAngulos = new vector<double>(tamHistAngulos,0.0);
     // Se crea una variable que leerá todo un renglón del archivo
     string trayectoria;
-    //aquí, creo un archivo para ver qué posiciones periódicas son las que se obtuvieron (para fines de pruebas)
-    std::ofstream out_posiciones;
-    //Si no es una prueba, se crea un archivo "definitivo"
-    
-        out_posiciones.open(carpetaSalida+"periodic_pos.txt");
-    
     std::map<Atomo,vector<Atomo>> vecinos;
     
         // de lo contrario, se crea un archivo de prueba (que es más pequeño)
@@ -479,7 +480,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
         if(n_atoms==numeroAtomos){
            //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
            //aquí debo llamar a la función que calcule la lista de vecinos
-           listaVecinos(*atomos,n_atoms,3.2,mitadCaja, boxSize, vecinos);
+           listaVecinos(*atomos,n_atoms,3.2,mitadCaja, boxSize, vecinos, histAngulos, deltaAng);
            (*atomos).clear();
             n_atoms = 0;
 
@@ -487,8 +488,22 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
         trayectorias++;
 
 
-        atomo.enviarMensaje();
+        
        // free(line);
+    }
+
+    //crear un archivo para volcar el contenido del histograma
+    std::ofstream salidaAngulos;
+
+    salidaAngulos.open(carpetaSalida+"hist_angulos.txt");
+
+    for(int i=0; i<tamHistAngulos;i++){
+        double angulo = deltaAng*i;
+        //imprimir el contador con una mayor precision
+        salidaAngulos << std::setprecision(10) << angulo << "                      " << (*histAngulos)[i] << endl;
+        //imprimir en consola la variable i
+        cout << (*histAngulos)[i] << endl;
+        
     }
 
     return 0;
