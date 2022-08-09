@@ -29,6 +29,7 @@
   ],
   "C_Cpp_Runner.useMsvc": false,
   "files.associations": {
-    "map": "cpp"
+    "map": "cpp",
+    "ostream": "cpp"
   }
 }

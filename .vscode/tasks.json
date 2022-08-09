@@ -1,0 +1,16 @@
+{
+   "tasks": [
+    {
+        "type": "cppbuild",
+        "label": "g++ build active file",
+        "args": [
+            "-g",
+            "${fileDirname}\\**.cpp",
+            "O3",
+            "${fileDirname}\\**.h",
+            "-o",
+            "${fileDirname}\\${fileBasenameNoExtension}",
+        ],
+    }
+   ] 
+}

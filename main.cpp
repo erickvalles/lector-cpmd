@@ -43,7 +43,7 @@ int main(int argc, char **argv) {//recibir como args
         // Se pide el tamaño del histograma que se utilizará
         tamHistograma = 512;
         carpetaSalida = "/home/erick/data/salidas/";
-        file = "/home/erick/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
+        file = "/home/erick/data/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; 
         //file = "/home/erick/reduced.cpmd";
     }else{
         boxSize = std::stod(argv[1]);
@@ -53,6 +53,7 @@ int main(int argc, char **argv) {//recibir como args
         carpetaSalida = argv[5];
     }
     cout << "el directorio de salida es: "<<carpetaSalida << endl;
+    cout << "el file a leer es: "<< file << endl;
     
    
     
