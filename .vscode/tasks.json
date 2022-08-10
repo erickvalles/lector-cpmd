@@ -1,6 +1,8 @@
 {
+    "version": "2.0.0",
    "tasks": [
     {
+        "command": "/usr/bin/g++",
         "type": "cppbuild",
         "label": "g++ build active file",
         "args": [

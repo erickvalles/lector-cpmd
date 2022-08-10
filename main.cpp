@@ -20,6 +20,8 @@ using std::ifstream;
 /*
 * Encontrar la función de estructura estático final
 * añadir el fscanf
+* se ejecuta desde la terminal con esto:
+* /usr/bin/g++ -O3 -g utils/utils.cpp utils/utils.h Atomo.cpp Atomo.h main.cpp -o main -lfftw3
 */
 int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string carpetaSalida, std::string file, int prueba);
 int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, double boxSize);
