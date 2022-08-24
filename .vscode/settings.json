@@ -30,6 +30,14 @@
   "C_Cpp_Runner.useMsvc": false,
   "files.associations": {
     "map": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "bit": "cpp",
+    "*.tcc": "cpp",
+    "bitset": "cpp",
+    "random": "cpp",
+    "istream": "cpp",
+    "limits": "cpp",
+    "functional": "cpp",
+    "type_traits": "cpp"
   }
 }

@@ -375,6 +375,7 @@ int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string ca
 
 
     input_file.close();
+    return 1;
 }
 
 int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, double boxSize){
@@ -495,13 +496,14 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
 
     //crear un archivo para volcar el contenido del histograma
     std::ofstream salidaAngulos;
-
+    double area_bajo_angulos = integral(*histAngulos,tamHistAngulos);
     salidaAngulos.open(carpetaSalida+"hist_angulos.txt");
 
     for(int i=0; i<tamHistAngulos;i++){
         double angulo = deltaAng*i;
+        double conteoAngulos = (*histAngulos)[i];
         //imprimir el contador con una mayor precision
-        salidaAngulos << std::setprecision(10) << angulo << "                      " << (*histAngulos)[i] << endl;
+        salidaAngulos << std::setprecision(10) << angulo << "                      " << conteoAngulos <<"            "<< conteoAngulos/area_bajo_angulos<< endl;
         //imprimir en consola la variable i
         cout << (*histAngulos)[i] << endl;
         

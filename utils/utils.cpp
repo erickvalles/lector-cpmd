@@ -239,27 +239,22 @@ double integral_simple(double gr, double r, double delta){
     return h*((fr(gr,lim_inf)+fr(gr,lim_sup))/2);    
     
 }
-double integral(double gr, double r, int n, double delta){ //determinar quin será a y hasta dónde llegará b
+double integral(vector <double> funcion_integrar, int n_divisiones){ //determinar quin será a y hasta dónde llegará b
+    double tam_funcion = funcion_integrar.size();
+    double a = 0.0;//el primer extremo en la función (valor en las x )
+    double b = 180.0;//el valor en las x
+    double h = (b - a)/n_divisiones;//(b-a)/n;
     
-    double h = delta;//(b-a)/n;
-    double a = r;
-    double b = a+delta;
-    
-    double fra = fr(gr,a);
-    
+    double fa = funcion_integrar.front();//son las amplitudes inicial
+    double fb = funcion_integrar.back();//amplitud final
     double sum = 0;
     
-    for(double i = a+h; i<b;i+=h){
+    for(double i = 1; i<tam_funcion;i++){
         
-        sum+=fr(gr,i);
+        sum+=funcion_integrar[i];
     }
     
-    
-    double frb = fr(gr,b);
-    
-    
-    
-    return (b-a)*((fra+2*sum+frb)/(2*n));//*/
+    return h*(((fa+fb)/2) + sum);//*/
     //return 0.0;
 
 }

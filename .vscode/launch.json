@@ -9,7 +9,7 @@
       "stopAtEntry": false,
       "externalConsole": false,
       "cwd": "/home/erick/code/lector-cpmd",
-      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "program": "/home/erick/code/lector-cpmd/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "/usr/bin/gdb",
       "setupCommands": [
@@ -18,9 +18,7 @@
           "text": "-enable-pretty-printing",
           "ignoreFailures": true
         }
-      ],
-      "preLaunchTask": "g++ build active file"
+      ]
     }
-    
   ]
 }

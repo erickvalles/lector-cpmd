@@ -34,7 +34,7 @@ double calculaDelta(double boxSize, int tamHistograma);
 void normalizarHistograma(vector<double> *histo, vector<double> *histo_norm, int n_atomos, int tam_histograma, double delta, double boxSize, int vecesHistograma);
 
 double fr(double gr, double r);
-double integral(double gr, double r, double a, double b, int n);
+double integral(vector <double> funcion_integrar, int n_divisiones);
 void numerosCoordinacion(vector<double> *gdr, vector<double> *coordinaciones, double delta, double rho);
 
 double integral_simple(double a, double b);
