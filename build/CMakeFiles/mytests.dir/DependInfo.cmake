@@ -12,6 +12,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../googletest/include"
   "../tests"
+  "../utils"
   "../googletest/googletest/include"
   "../googletest/googletest"
   )

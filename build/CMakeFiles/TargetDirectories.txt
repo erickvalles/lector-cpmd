@@ -1,6 +1,9 @@
 /home/erick/projects/lector_final/build/CMakeFiles/install/strip.dir
 /home/erick/projects/lector_final/build/CMakeFiles/install/local.dir
 /home/erick/projects/lector_final/build/CMakeFiles/edit_cache.dir
+/home/erick/projects/lector_final/build/CMakeFiles/main.dir
+/home/erick/projects/lector_final/build/CMakeFiles/a.dir
+/home/erick/projects/lector_final/build/CMakeFiles/utils.dir
 /home/erick/projects/lector_final/build/CMakeFiles/install.dir
 /home/erick/projects/lector_final/build/CMakeFiles/list_install_components.dir
 /home/erick/projects/lector_final/build/CMakeFiles/rebuild_cache.dir

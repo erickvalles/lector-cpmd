@@ -43,4 +43,7 @@ void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, d
 void sk(double *gdr, int tamHistograma, double delta_k, double rho, string dirSalida, double delta);
 void distribucionAngulos(int numeroAtomos, std::string carpetaSalida, std::string file);
 void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize,std::map<Atomo,vector<Atomo>> vecinos,vector<double> *histAngulos, double deltaAng);
+int suma(int a, int b){
+    return a+b;
+}
 #endif //CPF_UTILS_H

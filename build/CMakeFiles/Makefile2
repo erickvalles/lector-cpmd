@@ -53,6 +53,9 @@ CMAKE_BINARY_DIR = /home/erick/projects/lector_final/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/main.dir/all
+all: CMakeFiles/a.dir/all
+all: CMakeFiles/utils.dir/all
 all: CMakeFiles/mytests.dir/all
 all: googletest/all
 
@@ -64,6 +67,9 @@ preinstall: googletest/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/main.dir/clean
+clean: CMakeFiles/a.dir/clean
+clean: CMakeFiles/utils.dir/clean
 clean: CMakeFiles/mytests.dir/clean
 clean: googletest/clean
 
@@ -130,13 +136,94 @@ googletest/googletest/clean: googletest/googletest/CMakeFiles/gtest.dir/clean
 .PHONY : googletest/googletest/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/main.dir
+
+# All Build rule for target.
+CMakeFiles/main.dir/all:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=11,12 "Built target main"
+.PHONY : CMakeFiles/main.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector_final/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector_final/build/CMakeFiles 0
+.PHONY : CMakeFiles/main.dir/rule
+
+# Convenience name for target.
+main: CMakeFiles/main.dir/rule
+
+.PHONY : main
+
+# clean rule for target.
+CMakeFiles/main.dir/clean:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/clean
+.PHONY : CMakeFiles/main.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/a.dir
+
+# All Build rule for target.
+CMakeFiles/a.dir/all:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/depend
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=1,2 "Built target a"
+.PHONY : CMakeFiles/a.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/a.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector_final/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/a.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector_final/build/CMakeFiles 0
+.PHONY : CMakeFiles/a.dir/rule
+
+# Convenience name for target.
+a : CMakeFiles/a.dir/rule
+
+.PHONY : a
+
+# clean rule for target.
+CMakeFiles/a.dir/clean:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/clean
+.PHONY : CMakeFiles/a.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/utils.dir
+
+# All Build rule for target.
+CMakeFiles/utils.dir/all:
+	$(MAKE) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/depend
+	$(MAKE) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=15,16 "Built target utils"
+.PHONY : CMakeFiles/utils.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/utils.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector_final/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/utils.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector_final/build/CMakeFiles 0
+.PHONY : CMakeFiles/utils.dir/rule
+
+# Convenience name for target.
+utils: CMakeFiles/utils.dir/rule
+
+.PHONY : utils
+
+# clean rule for target.
+CMakeFiles/utils.dir/clean:
+	$(MAKE) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/clean
+.PHONY : CMakeFiles/utils.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/mytests.dir
 
 # All Build rule for target.
 CMakeFiles/mytests.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f CMakeFiles/mytests.dir/build.make CMakeFiles/mytests.dir/depend
 	$(MAKE) -f CMakeFiles/mytests.dir/build.make CMakeFiles/mytests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=9,10 "Built target mytests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=13,14 "Built target mytests"
 .PHONY : CMakeFiles/mytests.dir/all
 
 # Build rule for subdir invocation for target.
@@ -164,7 +251,7 @@ googletest/googlemock/CMakeFiles/gmock_main.dir/all: googletest/googlemock/CMake
 googletest/googlemock/CMakeFiles/gmock_main.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f googletest/googlemock/CMakeFiles/gmock_main.dir/build.make googletest/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) -f googletest/googlemock/CMakeFiles/gmock_main.dir/build.make googletest/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=3,4 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=5,6 "Built target gmock_main"
 .PHONY : googletest/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -191,7 +278,7 @@ googletest/googlemock/CMakeFiles/gmock_main.dir/clean:
 googletest/googlemock/CMakeFiles/gmock.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f googletest/googlemock/CMakeFiles/gmock.dir/build.make googletest/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) -f googletest/googlemock/CMakeFiles/gmock.dir/build.make googletest/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=1,2 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=3,4 "Built target gmock"
 .PHONY : googletest/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -218,7 +305,7 @@ googletest/googlemock/CMakeFiles/gmock.dir/clean:
 googletest/googletest/CMakeFiles/gtest_main.dir/all: googletest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=7,8 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=9,10 "Built target gtest_main"
 .PHONY : googletest/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -245,7 +332,7 @@ googletest/googletest/CMakeFiles/gtest_main.dir/clean:
 googletest/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f googletest/googletest/CMakeFiles/gtest.dir/build.make googletest/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f googletest/googletest/CMakeFiles/gtest.dir/build.make googletest/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=5,6 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector_final/build/CMakeFiles --progress-num=7,8 "Built target gtest"
 .PHONY : googletest/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.

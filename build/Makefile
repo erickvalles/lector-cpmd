@@ -157,6 +157,45 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named main
+
+# Build rule for target.
+main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main
+.PHONY : main
+
+# fast build rule for target.
+main/fast:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
+
+#=============================================================================
+# Target rules for targets named a
+
+# Build rule for target.
+a : cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 a
+.PHONY : a
+
+# fast build rule for target.
+a/fast:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/build
+.PHONY : a/fast
+
+#=============================================================================
+# Target rules for targets named utils
+
+# Build rule for target.
+utils: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 utils
+.PHONY : utils
+
+# fast build rule for target.
+utils/fast:
+	$(MAKE) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/build
+.PHONY : utils/fast
+
+#=============================================================================
 # Target rules for targets named mytests
 
 # Build rule for target.
@@ -221,6 +260,60 @@ gtest/fast:
 	$(MAKE) -f googletest/googletest/CMakeFiles/gtest.dir/build.make googletest/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
+Atomo.o: Atomo.cpp.o
+
+.PHONY : Atomo.o
+
+# target to build an object file
+Atomo.cpp.o:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/Atomo.cpp.o
+.PHONY : Atomo.cpp.o
+
+Atomo.i: Atomo.cpp.i
+
+.PHONY : Atomo.i
+
+# target to preprocess a source file
+Atomo.cpp.i:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/Atomo.cpp.i
+.PHONY : Atomo.cpp.i
+
+Atomo.s: Atomo.cpp.s
+
+.PHONY : Atomo.s
+
+# target to generate assembly for a file
+Atomo.cpp.s:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/Atomo.cpp.s
+.PHONY : Atomo.cpp.s
+
+main.o: main.cpp.o
+
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
+.PHONY : main.cpp.s
+
 mytests.o: mytests.cpp.o
 
 .PHONY : mytests.o
@@ -248,6 +341,33 @@ mytests.cpp.s:
 	$(MAKE) -f CMakeFiles/mytests.dir/build.make CMakeFiles/mytests.dir/mytests.cpp.s
 .PHONY : mytests.cpp.s
 
+utils/utils.o: utils/utils.cpp.o
+
+.PHONY : utils/utils.o
+
+# target to build an object file
+utils/utils.cpp.o:
+	$(MAKE) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/utils/utils.cpp.o
+.PHONY : utils/utils.cpp.o
+
+utils/utils.i: utils/utils.cpp.i
+
+.PHONY : utils/utils.i
+
+# target to preprocess a source file
+utils/utils.cpp.i:
+	$(MAKE) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/utils/utils.cpp.i
+.PHONY : utils/utils.cpp.i
+
+utils/utils.s: utils/utils.cpp.s
+
+.PHONY : utils/utils.s
+
+# target to generate assembly for a file
+utils/utils.cpp.s:
+	$(MAKE) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/utils/utils.cpp.s
+.PHONY : utils/utils.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -257,6 +377,9 @@ help:
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... edit_cache"
+	@echo "... main"
+	@echo "... a"
+	@echo "... utils"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
@@ -265,9 +388,18 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
+	@echo "... Atomo.o"
+	@echo "... Atomo.i"
+	@echo "... Atomo.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 	@echo "... mytests.o"
 	@echo "... mytests.i"
 	@echo "... mytests.s"
+	@echo "... utils/utils.o"
+	@echo "... utils/utils.i"
+	@echo "... utils/utils.s"
 .PHONY : help
 
 

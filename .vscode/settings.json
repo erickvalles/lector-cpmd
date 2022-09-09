@@ -39,5 +39,6 @@
     "limits": "cpp",
     "functional": "cpp",
     "type_traits": "cpp"
-  }
+  },
+  "cmake.configureOnOpen": false
 }

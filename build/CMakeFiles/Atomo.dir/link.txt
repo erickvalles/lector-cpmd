@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/Atomo.dir/Atomo.cpp.o  -o Atomo 
