@@ -421,7 +421,7 @@ float distanciaAtomos(Atomo a1, Atomo a2){
     return a1.distancia(a2.getrx(),a2.getry(),a2.getrz());
 }
 
-void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos, vector<double> *histAngulos, double deltaAng){
+void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos, vector<double> *histAngulos, double deltaAng, std::string trayectoria){
     //file:///D:/tesis/libros/computer_simultation_of_liquids.pdf pp. 162
     for(int i=0; i<n_atomos-1;i++){
         for(int j=0; j<n_atomos-1;j++){
@@ -451,6 +451,8 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
         }
     }
     std::map<Atomo,vector<Atomo>>::iterator it;
+    std::ofstream problematicos;
+    problematicos.open("/home/erick/data/salidas/input_problematicas.txt");
     for(it=vecinos.begin(); it!=vecinos.end(); it++){
         Atomo a1 = it->first;
         //obtener los vecinos de a1
@@ -476,6 +478,10 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 double anguloRad = acos(productoPunto/(moduloV1*moduloV2));
                 //convertir el angulo a grados
                 double anguloGrad = anguloRad*180/M_PI;
+                if(anguloGrad < 50 && anguloGrad > 35){
+                    std::cout << trayectoria << std::endl;
+                    problematicos << trayectoria << std::endl;                    
+                }
                 int pos = 0;
                 
                 pos = anguloGrad/deltaAng;
@@ -491,5 +497,6 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
         }
         
     }
+    problematicos.close();
 
 }
