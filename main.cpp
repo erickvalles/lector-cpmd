@@ -77,11 +77,11 @@ int main(int argc, char **argv) {//recibir como args
 
     //menú
     int opc;
-    cout << "¿Qué deseas calcular?"<<endl;
-    cout << "1.- g(r) \n2.- ADF" << endl;
+    //cout << "¿Qué deseas calcular?"<<endl;
+    //cout << "1.- g(r) \n2.- ADF" << endl;
 
-    std::cin >> opc;
-    //opc = 2;
+    //std::cin >> opc;
+    opc = 2;
     if(opc == 1){
         goto gdr;
     }else{

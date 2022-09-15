@@ -418,7 +418,7 @@ void sk(double *gdr, int tamHistograma, double delta_k, double rho, string dirSa
 }
 
 float distanciaAtomos(Atomo a1, Atomo a2){
-    return a1.distancia(a2.getrx(),a2.getry(),a2.getrz());
+    return a1.distancia(a2.getPrx(),a2.getPry(),a2.getPrz());
 }
 
 void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos, vector<double> *histAngulos, double deltaAng, std::string trayectoria){
@@ -427,16 +427,24 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
         for(int j=0; j<n_atomos-1;j++){
             Atomo atomo1 = atomos[i];
             Atomo atomo2 = atomos[j];
-            double distancia = distanciaAtomos(atomo1,atomo2);
+            
             double distancias[3] = {0,0,0};
+            calcula_dist_componentes(distancias,atomo1,atomo2,boxSize,mitadCaja);
+
+            // std::cout << "Lectura   "<< j << std::endl;
+
+            double distancia2 = calculaDistancia(distancias);
+            //
+            //double distancia = sqrtf(distancia2);
+            double distancia = sqrt(distancia2);
             if(i!=j){
                 if(distancia<mitadCaja){
-                    if(distancia<r_min){
-                        //std::cout << "atomo "<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
+                    if(distancia<r_min){//imágenes
+                        //std::cout << "atomo "<< i << "vecino " << j << std::endl;
                         vecinos[atomo1].push_back(atomo2);
                     }
 
-                }else{
+                }/*else{
                     atomo2.setPeriodics(atomo2.getPrx()+boxSize, atomo2.getPry()+boxSize, atomo2.getPrz()+boxSize);
                     distancia = distanciaAtomos(atomo1,atomo2);
                         
@@ -446,7 +454,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                     }
                 
             
-                }
+                }*/
             }
         }
     }
@@ -463,10 +471,11 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
             //iterar después del atomo actual
             Atomo vFijo = vecinos[i];
             vector<double> v1 = a1.vectorDifference(vFijo);
+            
             for(int j=i+1; j<vecinos.size(); j++){
                 
                 Atomo a2 = vecinos[j];
-                
+                std::cout << "i: "<< a1.getId() << "j: " << vFijo.getId() <<"k: "<< a2.getId()<< std::endl;
                 vector<double> v2 = a1.vectorDifference(a2);
                 //calcular el producto punto de los vectores v1 y v2
                 double productoPunto = v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
@@ -479,8 +488,8 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 //convertir el angulo a grados
                 double anguloGrad = anguloRad*180/M_PI;
                 if(anguloGrad < 50 && anguloGrad > 35){
-                    std::cout << trayectoria << std::endl;
-                    problematicos << trayectoria << std::endl;                    
+                    //std::cout << trayectoria << std::endl;
+                    //problematicos << trayectoria << std::endl;                    
                 }
                 int pos = 0;
                 
