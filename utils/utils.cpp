@@ -76,7 +76,7 @@ void histograma(vector<Atomo> atomos,int n_atomos, double delta, vector<double> 
             double distancia = sqrt(distancia2);
             int position = 0;
 
-            if(distancia<10.0){
+            if(distancia<10.0){//falta obtener las imágenes también de aquí, restando a la distancia el tamaño de la caja
                 position = distancia/delta;
                 (*histo)[position] += 1;
 
@@ -95,7 +95,7 @@ void histograma(vector<Atomo> atomos,int n_atomos, double delta, vector<double> 
 
 }
 
-void histogramaMejorado(vector<Atomo> atomos,int n_atomos, double delta, vector<double> *histo, double boxSize, double mitadCaja){
+/*void histogramaMejorado(vector<Atomo> atomos,int n_atomos, double delta, vector<double> *histo, double boxSize, double mitadCaja){
     // std::cout << "Calculando histograma " << std::endl;
     //vector<int> hist(tamanio,0);
     //TimerBaseChrono tc("comienza histograma");
@@ -148,7 +148,7 @@ void histogramaMejorado(vector<Atomo> atomos,int n_atomos, double delta, vector<
     }
     
 
-}
+}*/
 
 void calcula_dist_componentes(double *distancias, Atomo a1, Atomo a2, double boxSize, double halfBox){
     
@@ -185,7 +185,7 @@ double verificaDistancia(double distancia, double boxSize, double halfBox){
         return distancia;
     }*/
 }
-double verificaComponente(double distancia, double boxSize, double halfBox){
+double verificaComponente(double distancia, double boxSize, double halfBox){//usar esta angulos
     
     if(distancia > 0){
         return distancia>(halfBox)?distancia-boxSize:distancia;
@@ -363,7 +363,7 @@ void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, d
 }
 
 void sk(double *gdr, int tamHistograma, double delta_k, double rho, string dirSalida, double delta){
-    
+    /*
     int MAX = 8192;
     int N=MAX/2;
     fftw_complex out[MAX], in[MAX];
@@ -413,7 +413,7 @@ void sk(double *gdr, int tamHistograma, double delta_k, double rho, string dirSa
     fftw_destroy_plan(p);
     fftw_cleanup();
     
-    
+    */
     
 }
 
@@ -428,36 +428,37 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
             Atomo atomo1 = atomos[i];
             Atomo atomo2 = atomos[j];
             
-            double distancias[3] = {0,0,0};
-            calcula_dist_componentes(distancias,atomo1,atomo2,boxSize,mitadCaja);
+            if(i!=j){
+                double distancias[3] = {0,0,0};
+                calcula_dist_componentes(distancias,atomo1,atomo2,boxSize,mitadCaja);
 
-            // std::cout << "Lectura   "<< j << std::endl;
+                // std::cout << "Lectura   "<< j << std::endl;
 
-            double distancia2 = calculaDistancia(distancias);
+                double distancia2 = calculaDistancia(distancias);
             //
             //double distancia = sqrtf(distancia2);
-            double distancia = sqrt(distancia2);
-            if(i!=j){
-                if(distancia<mitadCaja){
-                    if(distancia<r_min){//imágenes
-                        //std::cout << "atomo "<< i << "vecino " << j << std::endl;
-                        vecinos[atomo1].push_back(atomo2);
-                    }
-
-                }/*else{
-                    atomo2.setPeriodics(atomo2.getPrx()+boxSize, atomo2.getPry()+boxSize, atomo2.getPrz()+boxSize);
-                    distancia = distanciaAtomos(atomo1,atomo2);
-                        
-                    if(distancia<r_min){
-                        //std::cout << "atomo imagen"<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
-                        vecinos[atomo1].push_back(atomo2);
-                    }
-                
+                double distancia = sqrt(distancia2);
             
-                }*/
+                    if(distancia<=mitadCaja){
+                        if(distancia<r_min){//imágenes
+                        //std::cout << "atomo "<< i << "vecino " << j << std::endl;
+                            vecinos[atomo1].push_back(atomo2);
+                        }
+
+                    }else{
+                        
+                        distancia -= boxSize;//con esto obtengo la distancia a la imagen
+                        if(distancia<=mitadCaja){
+                            if(distancia<r_min){
+                            //std::cout << "atomo imagen"<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
+                            vecinos[atomo1].push_back(atomo2);
+                            }
+                        }
+                        
+                    }
+                }
             }
         }
-    }
     std::map<Atomo,vector<Atomo>>::iterator it;
     std::ofstream problematicos;
     problematicos.open("/home/erick/data/salidas/input_problematicas.txt");
@@ -475,7 +476,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
             for(int j=i+1; j<vecinos.size(); j++){
                 
                 Atomo a2 = vecinos[j];
-                std::cout << "i: "<< a1.getId() << "j: " << vFijo.getId() <<"k: "<< a2.getId()<< std::endl;
+                //std::cout << "i: "<< a1.getId() << "j: " << vFijo.getId() <<"k: "<< a2.getId()<< std::endl;
                 vector<double> v2 = a1.vectorDifference(a2);
                 //calcular el producto punto de los vectores v1 y v2
                 double productoPunto = v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];

@@ -383,7 +383,7 @@ int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string ca
 int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, double boxSize){
     cout << "Se calcularán los ángulos" <<endl;
      // Se calcula la mitad de la caja aquí mismo por razones de rendimiento. 
-    //double mitadCaja = boxSize/2;
+    double mitadCaja = boxSize/2;
     
     
     // Este factor sirve para convertir de unidades atómicas a Angstroms
@@ -433,14 +433,16 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
     // Se crea una variable que leerá todo un renglón del archivo
     string trayectoria;
     std::map<Atomo,vector<Atomo>> vecinos;
-    
+    std::ofstream out_posiciones;
+
+    out_posiciones.open(carpetaSalida+"periodic_pos_angulos.txt");
         // de lo contrario, se crea un archivo de prueba (que es más pequeño)
     while (std::getline(input_file,trayectoria)){
         //se crea un vector llamado partes, ya que cada línea la dividiremos por los espacios en blanco que contiene
         vector<string> partes;
         //dividimos la variable trayectoria por espacios y la almacenamos en el vector partes utilizando la librería boost
         boost::split(partes,trayectoria, boost::is_any_of(" "), boost::token_compress_on);
-        double mitadCaja = boxSize/2;
+        
         
         //Creamos una instancia de la clase átomo
         Atomo atomo;//eliminarlos una vez que los saque del arreglo**
@@ -463,7 +465,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
         atomo.setId(n_atoms);
         //Se crea un arreglo de doubles que almacenará las posiciones periódicas para el átomo
         double periodics[3] = {0.0,0.0,0.0};
-        /*
+        /* 
          * Se llama al método que calcula las posiciones periódicas, se le pasan las posiciones en x,y,z, el tamaño de la caja
          * y la mitad de la caja para calcularlas
          * */
@@ -476,7 +478,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
          
          
         atomo.setPeriodics(periodics[0],periodics[1],periodics[2]);
-
+        out_posiciones << std::setprecision(20) << "         "<< periodics[0] << "        " << periodics[1] <<"     " << periodics[2]<<endl;
         /*
          * Una vez que tenemos el átomo con las pocisiones periódicas*/
         (*atomos).push_back(atomo);
@@ -489,6 +491,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
             n_atoms = 0;
 
         }
+        
         trayectorias++;
 
 
@@ -496,6 +499,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
        // free(line);
     }
 
+out_posiciones.close();
     //crear un archivo para volcar el contenido del histograma
     std::ofstream salidaAngulos;
     double area_bajo_angulos = integral(*histAngulos,tamHistAngulos);

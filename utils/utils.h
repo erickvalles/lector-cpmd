@@ -18,7 +18,7 @@ void calculaPosicionesPeriodicas(double *posPeriodicas,const double rx, const do
 /*
  * Este mtodo */
 void histograma(vector<Atomo> atomos,int n_atomos, double delta, vector<double> *histo, double boxSize, double mitadCaja);
-void histogramaMejorado(vector<Atomo> atomos,int n_atomos, double delta, vector<double> *histo, double boxSize, double mitadCaja);
+//void histogramaMejorado(vector<Atomo> atomos,int n_atomos, double delta, vector<double> *histo, double boxSize, double mitadCaja);
 double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox);
 
 double calculaDistancia(double *distancias);
