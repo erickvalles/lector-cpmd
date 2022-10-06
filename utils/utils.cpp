@@ -76,15 +76,24 @@ void histograma(vector<Atomo> atomos,int n_atomos, double delta, vector<double> 
             double distancia = sqrt(distancia2);
             int position = 0;
 
-            if(distancia<10.0){//falta obtener las imágenes también de aquí, restando a la distancia el tamaño de la caja
+            if(distancia<mitadCaja){//falta obtener las imágenes también de aquí, restando a la distancia el tamaño de la caja
                 position = distancia/delta;
                 (*histo)[position] += 1;
 
             }/*else{
-                    no_cumplen++;
-                    //std::cout << "la distancia " << distancia << "no cumple el criterio" << std::endl;
-                
-                // std::cout << "la distancia " << distancia << "no cumple el criterio" << std::endl;
+                double imgx = verificaComponenteParaImagen(distancias[0],boxSize,mitadCaja);
+                double imgy = verificaComponenteParaImagen(distancias[1],boxSize,mitadCaja);
+                double imgz = verificaComponenteParaImagen(distancias[2],boxSize,mitadCaja);
+
+                double dist_comp_img[3] = {imgx,imgy,imgz};
+
+                distancia2 = calculaDistancia(dist_comp_img);
+
+                distancia = sqrt(distancia2);
+                if(distancia<mitadCaja){
+                    position = distancia/delta;
+                    (*histo)[position] += 1;
+                }
             }*/
 
             //std::cout << "recorrer 300 tarda "<< tdist.GetMs() << std::endl;
@@ -169,9 +178,9 @@ void calcula_dist_componentes(double *distancias, Atomo a1, Atomo a2, double box
     double compz = perz2-perz1;
     //std::cout << perz2 <<"-"<<perz1 <<"="<<compz << std::endl;
     
-    distancias[0]=verificaComponenteR(compx,boxSize, halfBox);
-    distancias[1]=verificaComponenteR(compy,boxSize, halfBox);
-    distancias[2]=verificaComponenteR(compz,boxSize, halfBox);
+    distancias[0]=verificaComponenteParaImagen(compx,boxSize, halfBox);
+    distancias[1]=verificaComponenteParaImagen(compy,boxSize, halfBox);
+    distancias[2]=verificaComponenteParaImagen(compz,boxSize, halfBox);
     
 }
 
@@ -185,16 +194,16 @@ double verificaDistancia(double distancia, double boxSize, double halfBox){
         return distancia;
     }*/
 }
-double verificaComponente(double distancia, double boxSize, double halfBox){//usar esta angulos
+double verificaComponenteParaImagen(double dif_componentes, double boxSize, double halfBox){//usar esta angulos
     
-    if(distancia > 0){
-        return distancia>(halfBox)?distancia-boxSize:distancia;
+    if(dif_componentes > 0){
+        return dif_componentes>(halfBox)?dif_componentes-boxSize:dif_componentes;
     }
-    if(distancia < 0){
-        return distancia<(-halfBox)?distancia+boxSize:distancia;
+    if(dif_componentes < 0){
+        return dif_componentes<(-halfBox)?dif_componentes+boxSize:dif_componentes;
     }
     
-    return distancia;
+    return dif_componentes;
 }
 
 double verificaComponenteR(double componente, double boxSize, double halfBox){
@@ -429,12 +438,12 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
             Atomo atomo2 = atomos[j];
             
             if(i!=j){
-                double distancias[3] = {0,0,0};
-                calcula_dist_componentes(distancias,atomo1,atomo2,boxSize,mitadCaja);
+                double distancias_comp[3] = {0,0,0};
+                calcula_dist_componentes(distancias_comp,atomo1,atomo2,boxSize,mitadCaja);
 
                 // std::cout << "Lectura   "<< j << std::endl;
 
-                double distancia2 = calculaDistancia(distancias);
+                double distancia2 = calculaDistancia(distancias_comp);
             //
             //double distancia = sqrtf(distancia2);
                 double distancia = sqrt(distancia2);
@@ -446,8 +455,16 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                         }
 
                     }else{
-                        
-                        distancia -= boxSize;//con esto obtengo la distancia a la imagen
+                        double imgx = verificaComponenteParaImagen(distancias_comp[0],boxSize,mitadCaja);
+                        double imgy = verificaComponenteParaImagen(distancias_comp[1],boxSize,mitadCaja);
+                        double imgz = verificaComponenteParaImagen(distancias_comp[2],boxSize,mitadCaja);
+
+                        double dist_comp_img[3] = {imgx,imgy,imgz};
+
+                        distancia2 = calculaDistancia(dist_comp_img);
+
+                        distancia = sqrt(distancia2);
+                         
                         if(distancia<=mitadCaja){
                             if(distancia<r_min){
                             //std::cout << "atomo imagen"<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;

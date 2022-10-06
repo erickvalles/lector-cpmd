@@ -24,7 +24,7 @@ double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox);
 double calculaDistancia(double *distancias);
 double verificaDistancia(double distancia, double boxSize, double halfBox);
 double verificaComponenteR(double distancia, double boxSize, double halfBox);
-double verificaComponente(double componente, double boxSize, double halfBox);
+double verificaComponenteParaImagen(double dif_componentes, double boxSize, double halfBox);
 
 
 vector<double> componentes_restados(Atomo a1, Atomo a2);

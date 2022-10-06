@@ -8,7 +8,7 @@
       "stopAtEntry": false,
       "externalConsole": false,
       "cwd": "/home/erick/projects/lector-cpmd",
-      "program": "/home/erick/projects/lector-cpmd/build/Debug/outDebug",
+      "program": "/home/erick/projects/lector-cpmd/main",
       "MIMode": "gdb",
       "miDebuggerPath": "/usr/bin/gdb",
       "setupCommands": [

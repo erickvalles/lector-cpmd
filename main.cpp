@@ -81,7 +81,7 @@ int main(int argc, char **argv) {//recibir como args
     //cout << "1.- g(r) \n2.- ADF" << endl;
 
     //std::cin >> opc;
-    opc = 2;
+    opc = 1;
     if(opc == 1){
         goto gdr;
     }else{
