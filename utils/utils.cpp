@@ -450,7 +450,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
             
                     if(distancia<=mitadCaja){
                         if(distancia<r_min){//imágenes
-                        //std::cout << "atomo "<< i << "vecino " << j << std::endl;
+                        
                             vecinos[atomo1].push_back(atomo2);
                         }
 
@@ -467,7 +467,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                          
                         if(distancia<=mitadCaja){
                             if(distancia<r_min){
-                            //std::cout << "atomo imagen"<< i << "vecino " << j <<"Lo metemos a la lista" << std::endl;
+                            
                             vecinos[atomo1].push_back(atomo2);
                             }
                         }
@@ -495,6 +495,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 Atomo a2 = vecinos[j];
                 //std::cout << "i: "<< a1.getId() << "j: " << vFijo.getId() <<"k: "<< a2.getId()<< std::endl;
                 vector<double> v2 = a1.vectorDifference(a2);
+                problematicos << a1.getId() <<"  "<< vFijo.getId() <<" "<<a2.getId() << std::endl; 
                 //calcular el producto punto de los vectores v1 y v2
                 double productoPunto = v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
                 //calcular el modulo del vector v1
