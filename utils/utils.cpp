@@ -432,6 +432,8 @@ float distanciaAtomos(Atomo a1, Atomo a2){
 
 void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos, vector<double> *histAngulos, double deltaAng, std::string trayectoria){
     //file:///D:/tesis/libros/computer_simultation_of_liquids.pdf pp. 162
+    //vector con vectores (triadas) que serán iterados después
+    vector<vector<Atomo>> vec;
     for(auto &aa1: atomos){
         for(auto aa2:atomos){
             Atomo atomo1 = aa1;
@@ -445,15 +447,23 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
 
                 double distancia2 = calculaDistancia(distancias_comp);
             //
-            //double distancia = sqrtf(distancia2);
+            //double distancia = sqrtf(distancia2);|| (atomo1.getId()==0 && atomo2.getId()==45)
+
                 double distancia = sqrt(distancia2);
+                if((atomo1.getId()==0 && atomo2.getId()==94) ){
+                        std::cout << "dist entre 0 y 94: " << distancia << std::endl;
+                }
+                if((atomo1.getId()==0 && atomo2.getId()==45)){
+                        std::cout << "dist entre 0 y 45: " << distancia << std::endl;
+                }
+		double algo;
             
                     if(distancia<=mitadCaja){
                         if(distancia<r_min){//imágenes
                             //if((atomo1.getId()==0 && atomo2.getId()==94) || (atomo1.getId()==0 && atomo2.getId()==45)){
                                // std::cout << distancia << std::endl;
                             //}
-                        
+
                             vecinos[atomo1].push_back(atomo2);
                         }
 
@@ -513,8 +523,8 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 //convertir el angulo a grados
                 double anguloGrad = anguloRad*180/M_PI;
                 if(anguloGrad < 12 && anguloGrad > 10){
-                    std::cout << trayectoria << std::endl;
-                    std::cout << "periodicas" << a1.getPrx() <<" " << a2.getPrx() << std::endl;
+                    //std::cout << trayectoria << std::endl;
+                   // std::cout << "periodicas" << a1.getPrx() <<" " << a2.getPrx() << std::endl;
                     //problematicos << trayectoria << std::endl;                    
                 }
                 int pos = 0;
