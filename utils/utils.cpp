@@ -432,12 +432,14 @@ float distanciaAtomos(Atomo a1, Atomo a2){
 
 void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos, vector<double> *histAngulos, double deltaAng, std::string trayectoria){
     //file:///D:/tesis/libros/computer_simultation_of_liquids.pdf pp. 162
-    for(int i=0; i<n_atomos-1;i++){
-        for(int j=0; j<n_atomos-1;j++){
-            Atomo atomo1 = atomos[i];
-            Atomo atomo2 = atomos[j];
+    //vector con vectores (triadas) que serán iterados después
+    vector<vector<Atomo>> vec;
+    for(auto &aa1: atomos){
+        for(auto aa2:atomos){
+            Atomo atomo1 = aa1;
+            Atomo atomo2 = aa2;
             
-            if(i!=j){
+            if(atomo1.getId()!=atomo2.getId()){
                 double distancias_comp[3] = {0,0,0};
                 calcula_dist_componentes(distancias_comp,atomo1,atomo2,boxSize,mitadCaja);
 
@@ -445,12 +447,23 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
 
                 double distancia2 = calculaDistancia(distancias_comp);
             //
-            //double distancia = sqrtf(distancia2);
+            //double distancia = sqrtf(distancia2);|| (atomo1.getId()==0 && atomo2.getId()==45)
+
                 double distancia = sqrt(distancia2);
+                if((atomo1.getId()==0 && atomo2.getId()==94) ){
+                        std::cout << "dist entre 0 y 94: " << distancia << std::endl;
+                }
+                if((atomo1.getId()==0 && atomo2.getId()==45)){
+                        std::cout << "dist entre 0 y 45: " << distancia << std::endl;
+                }
+		double algo;
             
                     if(distancia<=mitadCaja){
                         if(distancia<r_min){//imágenes
-                        
+                            //if((atomo1.getId()==0 && atomo2.getId()==94) || (atomo1.getId()==0 && atomo2.getId()==45)){
+                               // std::cout << distancia << std::endl;
+                            //}
+
                             vecinos[atomo1].push_back(atomo2);
                         }
 
@@ -461,12 +474,15 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
 
                         double dist_comp_img[3] = {imgx,imgy,imgz};
 
-                        distancia2 = calculaDistancia(dist_comp_img);
+                        double otraDistancia2 = calculaDistancia(dist_comp_img);
 
-                        distancia = sqrt(distancia2);
+                        double OtraDistancia = sqrt(otraDistancia2);
                          
-                        if(distancia<=mitadCaja){
-                            if(distancia<r_min){
+                        if(OtraDistancia<=mitadCaja){
+                            if(OtraDistancia<r_min){
+                                //if((atomo1.getId()==0 && atomo2.getId()==94) || (atomo1.getId()==0 && atomo2.getId()==45)){
+                                    //std::cout << distancia << " imagen" << std::endl;
+                                //}
                             
                             vecinos[atomo1].push_back(atomo2);
                             }
@@ -506,8 +522,9 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 double anguloRad = acos(productoPunto/(moduloV1*moduloV2));
                 //convertir el angulo a grados
                 double anguloGrad = anguloRad*180/M_PI;
-                if(anguloGrad < 50 && anguloGrad > 35){
+                if(anguloGrad < 12 && anguloGrad > 10){
                     //std::cout << trayectoria << std::endl;
+                   // std::cout << "periodicas" << a1.getPrx() <<" " << a2.getPrx() << std::endl;
                     //problematicos << trayectoria << std::endl;                    
                 }
                 int pos = 0;
