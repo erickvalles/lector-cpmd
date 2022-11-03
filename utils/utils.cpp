@@ -200,7 +200,7 @@ double verificaComponenteParaImagen(double dif_componentes, double boxSize, doub
         return dif_componentes>(halfBox)?dif_componentes-boxSize:dif_componentes;
     }
     if(dif_componentes < 0){
-        return dif_componentes<(-halfBox)?dif_componentes+boxSize:dif_componentes;
+        return dif_componentes<(-halfBox)?dif_componentes+boxSize:dif_componentes;//esto es correcto, lo verifiqué y funciona
     }
     
     return dif_componentes;
