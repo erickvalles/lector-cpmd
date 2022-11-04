@@ -22,7 +22,7 @@ void histograma(vector<Atomo> atomos,int n_atomos, double delta, vector<double> 
 double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox);
 
 double calculaDistancia(double *distancias);
-double verificaDistancia(double distancia, double boxSize, double halfBox);
+
 double verificaComponenteR(double distancia, double boxSize, double halfBox);
 double verificaComponenteParaImagen(double dif_componentes, double boxSize, double halfBox);
 

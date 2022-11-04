@@ -186,14 +186,6 @@ void calcula_dist_componentes(double *distancias, Atomo a1, Atomo a2, double box
 
 
 
-double verificaDistancia(double distancia, double boxSize, double halfBox){
-    return distancia>=(halfBox)?distancia-boxSize:distancia;
-/*    if(distancia>halfBox){
-        return distancia-boxSize;
-    }else{
-        return distancia;
-    }*/
-}
 double verificaComponenteParaImagen(double dif_componentes, double boxSize, double halfBox){//usar esta angulos
     
     if(dif_componentes > 0){
@@ -434,8 +426,13 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
     //file:///D:/tesis/libros/computer_simultation_of_liquids.pdf pp. 162
     //vector con vectores (triadas) que serán iterados después
     vector<vector<Atomo>> vec;
+    bool esVecino = false;
+    int cont1 = 0;
+    int cont2 = 0;
     for(auto &aa1: atomos){
+        cont1++;
         for(auto aa2:atomos){
+            cont2++;
             Atomo atomo1 = aa1;
             Atomo atomo2 = aa2;
             
@@ -450,12 +447,12 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
             //double distancia = sqrtf(distancia2);|| (atomo1.getId()==0 && atomo2.getId()==45)
 
                 double distancia = sqrt(distancia2);
-                if((atomo1.getId()==0 && atomo2.getId()==94) ){
+               /* if((atomo1.getId()==0 && atomo2.getId()==94) ){
                         std::cout << "dist entre 0 y 94: " << distancia << std::endl;
                 }
                 if((atomo1.getId()==0 && atomo2.getId()==45)){
                         std::cout << "dist entre 0 y 45: " << distancia << std::endl;
-                }
+                }*/
 		double algo;
             
                     if(distancia<=mitadCaja){
@@ -463,8 +460,10 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                             //if((atomo1.getId()==0 && atomo2.getId()==94) || (atomo1.getId()==0 && atomo2.getId()==45)){
                                // std::cout << distancia << std::endl;
                             //}
-
-                            vecinos[atomo1].push_back(atomo2);
+                            esVecino = true;
+                            
+                        }else{
+                            esVecino = false;
                         }
 
                     }else{
@@ -480,15 +479,22 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                          
                         if(OtraDistancia<=mitadCaja){
                             if(OtraDistancia<r_min){
+                                esVecino = true;
                                 //if((atomo1.getId()==0 && atomo2.getId()==94) || (atomo1.getId()==0 && atomo2.getId()==45)){
                                     //std::cout << distancia << " imagen" << std::endl;
                                 //}
                             
-                            vecinos[atomo1].push_back(atomo2);
+                            //vecinos[atomo1].push_back(atomo2);
+                            }else{
+                                esVecino = false;
                             }
                         }
                         
                     }
+                    if(esVecino){
+                        vecinos[atomo1].push_back(atomo2);
+                    }
+                    esVecino = false;
                 }
             }
         }
@@ -498,17 +504,17 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
     for(it=vecinos.begin(); it!=vecinos.end(); it++){
         Atomo a1 = it->first;
         //obtener los vecinos de a1
-        vector<Atomo> vecinos = it->second;
+        vector<Atomo> vecinosTriada = it->second;
         
         //std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
-        for (int i=0; i<vecinos.size(); i++){
+        for (int i=0; i<vecinosTriada.size(); i++){
             //iterar después del atomo actual
-            Atomo vFijo = vecinos[i];
+            Atomo vFijo = vecinosTriada[i];
             vector<double> v1 = a1.vectorDifference(vFijo);
             
-            for(int j=i+1; j<vecinos.size(); j++){
+            for(int j=i+1; j<vecinosTriada.size(); j++){
                 
-                Atomo a2 = vecinos[j];
+                Atomo a2 = vecinosTriada[j];
                 //std::cout << "i: "<< a1.getId() << "j: " << vFijo.getId() <<"k: "<< a2.getId()<< std::endl;
                 vector<double> v2 = a1.vectorDifference(a2);
                 problematicos << a1.getId() <<"  "<< vFijo.getId() <<" "<<a2.getId() << std::endl; 
@@ -537,9 +543,10 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 //imprimir cuantos elementos en esa posicion hay
                 //std::cout << "Histograma["<<pos<<"]="<<(*histAngulos)[pos]<<std::endl;
             }
-            
+            vecinosTriada.clear();
             
         }
+        
         
     }
     problematicos.close();

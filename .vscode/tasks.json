@@ -4,11 +4,11 @@
     {
         "command": "/usr/bin/g++",
         "type": "cppbuild",
-        "label": "g++ build active file",
+        "label": "g++ build active file with not optimized shit",
         "args": [
             "-g",
             "${fileDirname}\\**.cpp",
-            "O3",
+            "O0",
             "${fileDirname}\\**.h",
             "-o",
             "${fileDirname}\\${fileBasenameNoExtension}",
