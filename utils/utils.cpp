@@ -461,7 +461,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                                // std::cout << distancia << std::endl;
                             //}
                             esVecino = true;
-                            
+                            atomo2.distanciaVecino = distancia;
                         }else{
                             esVecino = false;
                         }
@@ -480,6 +480,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                         if(OtraDistancia<=mitadCaja){
                             if(OtraDistancia<r_min){
                                 esVecino = true;
+                                atomo2.distanciaVecino = OtraDistancia;
                                 //if((atomo1.getId()==0 && atomo2.getId()==94) || (atomo1.getId()==0 && atomo2.getId()==45)){
                                     //std::cout << distancia << " imagen" << std::endl;
                                 //}
@@ -504,7 +505,8 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
     for(it=vecinos.begin(); it!=vecinos.end(); it++){
         Atomo a1 = it->first;
         //obtener los vecinos de a1
-        vector<Atomo> vecinosTriada = it->second;
+        
+        vector<Atomo> vecinosTriada = ordenarPorDistancia(it->second);
         
         //std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
         for (int i=0; i<vecinosTriada.size(); i++){
@@ -543,12 +545,19 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 //imprimir cuantos elementos en esa posicion hay
                 //std::cout << "Histograma["<<pos<<"]="<<(*histAngulos)[pos]<<std::endl;
             }
-            vecinosTriada.clear();
+            
             
         }
-        
+        vecinosTriada.clear();
         
     }
     problematicos.close();
 
+}
+
+
+std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos){
+    vector <Atomo> atomos_copy = vecinos;
+    std::sort(atomos_copy.begin(),atomos_copy.end());
+    return atomos_copy;
 }

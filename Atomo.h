@@ -38,6 +38,7 @@ public:
     double getrx();
     double getry();
     double getrz();
+    double distanciaVecino=0;
     void setEspecie(int especie);
     int getEspecie() const;
     void setSpeeds(double vx, double vy, double vz);
@@ -49,12 +50,13 @@ public:
     void setId(int id);
     int getId() const;
     bool operator<(const Atomo& b) const{
-        return id < b.id;
+        return distanciaVecino < b.distanciaVecino;
     }
     double dotProduct(Atomo &b);
     double absolute();
     //obtain a new vector from the difference between two atoms
     vector<double> vectorDifference(Atomo &b);
+    //std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos);
 
 };
 

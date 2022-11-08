@@ -6,6 +6,7 @@
 #include "Atomo.h"
 #include "math.h"
 #include <map>
+#include <algorithm>
 
 
 std::string Atomo::enviarMensaje(){
@@ -88,4 +89,10 @@ double Atomo::distancia(double x, double y, double z){
     double dist = sqrt(suma_cuadrados);
     return dist;
 }
+/*
+std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos){
+    vector <Atomo> atomos_copy = vecinos;
+    std::sort(atomos_copy.begin(),atomos_copy.end());
+    return atomos_copy;
+}*/
 
