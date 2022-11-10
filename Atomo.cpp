@@ -74,9 +74,9 @@ double Atomo::absolute(){
 
 vector <double> Atomo::vectorDifference(Atomo &b){
     vector <double> result;
-    result.push_back(this->prx - b.prx);
-    result.push_back(this->pry - b.pry);
-    result.push_back(this->prz - b.prz);
+    result.push_back(b.prx - this->prx );
+    result.push_back(b.pry - this->pry);
+    result.push_back(b.prz - this->prz);
     return result;
 }
 
