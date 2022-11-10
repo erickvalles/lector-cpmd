@@ -49,8 +49,12 @@ public:
     double distancia(double x, double y, double z);
     void setId(int id);
     int getId() const;
-    bool operator<(const Atomo& b) const{
+    /*bool operator<(const Atomo& b) const{
         return distanciaVecino < b.distanciaVecino;
+    }*/
+
+     bool operator<(const Atomo& b) const{
+        return id < b.id;
     }
     double dotProduct(Atomo &b);
     double absolute();

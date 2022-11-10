@@ -461,7 +461,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                                // std::cout << distancia << std::endl;
                             //}
                             esVecino = true;
-                            atomo2.distanciaVecino = distancia;
+                            //atomo2.distanciaVecino = distancia;
                         }else{
                             esVecino = false;
                         }
@@ -480,7 +480,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                         if(OtraDistancia<=mitadCaja){
                             if(OtraDistancia<r_min){
                                 esVecino = true;
-                                atomo2.distanciaVecino = OtraDistancia;
+                               // atomo2.distanciaVecino = OtraDistancia;
                                 //if((atomo1.getId()==0 && atomo2.getId()==94) || (atomo1.getId()==0 && atomo2.getId()==45)){
                                     //std::cout << distancia << " imagen" << std::endl;
                                 //}
@@ -506,8 +506,8 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
         Atomo a1 = it->first;
         //obtener los vecinos de a1
         
-        vector<Atomo> vecinosTriada = ordenarPorDistancia(it->second);
-        
+        //vector<Atomo> vecinosTriada = ordenarPorDistancia(it->second);
+        vector<Atomo> vecinosTriada = it->second;
         //std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
         for (int i=0; i<vecinosTriada.size(); i++){
             //iterar después del atomo actual
@@ -519,7 +519,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 Atomo a2 = vecinosTriada[j];
                 //std::cout << "i: "<< a1.getId() << "j: " << vFijo.getId() <<"k: "<< a2.getId()<< std::endl;
                 vector<double> v2 = a1.vectorDifference(a2);
-                problematicos << a1.getId() <<"  "<< vFijo.getId() <<" "<<a2.getId() << std::endl; 
+                
                 //calcular el producto punto de los vectores v1 y v2
                 double productoPunto = v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
                 //calcular el modulo del vector v1
@@ -530,6 +530,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 double anguloRad = acos(productoPunto/(moduloV1*moduloV2));
                 //convertir el angulo a grados
                 double anguloGrad = anguloRad*180/M_PI;
+                problematicos << a1.getId() <<"  "<< vFijo.getId() <<" "<<a2.getId() << "   "<<anguloGrad<< std::endl; 
                 if(anguloGrad < 12 && anguloGrad > 10){
                     //std::cout << trayectoria << std::endl;
                    // std::cout << "periodicas" << a1.getPrx() <<" " << a2.getPrx() << std::endl;
@@ -556,8 +557,8 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
 }
 
 
-std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos){
+/*std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos){
     vector <Atomo> atomos_copy = vecinos;
     std::sort(atomos_copy.begin(),atomos_copy.end());
     return atomos_copy;
-}
+}*/
