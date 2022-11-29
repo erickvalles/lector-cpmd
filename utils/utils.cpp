@@ -21,7 +21,7 @@ void calculaPosicionesPeriodicas(double *posPeriodicas,const double rx, const do
 
 
 double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox){
-    
+    bool reaplicar = false;
     if(posicion >= halfBox){
         posicion -= boxSize;
         posicion = evaluaCajaRecursivo(posicion,boxSize,halfBox);
@@ -501,7 +501,9 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
         }
     std::map<Atomo,vector<Atomo>>::iterator it;
     std::ofstream problematicos;
+    std::ofstream probs;
     problematicos.open("/home/erick/data/salidas/input_problematicas.txt");
+    //probs.open("/home/erick/data/salidas/reduced_problematics.txt");
     for(it=vecinos.begin(); it!=vecinos.end(); it++){
         Atomo a1 = it->first;
         //obtener los vecinos de a1
@@ -534,7 +536,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 if(anguloGrad < 12 && anguloGrad > 10){
                     //std::cout << trayectoria << std::endl;
                    // std::cout << "periodicas" << a1.getPrx() <<" " << a2.getPrx() << std::endl;
-                    //problematicos << trayectoria << std::endl;                    
+                    //probs << trayectoria << std::endl;                    
                 }
                 int pos = 0;
                 
@@ -553,6 +555,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
         
     }
     problematicos.close();
+    probs.close();
 
 }
 

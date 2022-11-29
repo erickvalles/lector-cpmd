@@ -45,7 +45,7 @@ int main(int argc, char **argv) {//recibir como args
         // Se pide el tamaño del histograma que se utilizará
         tamHistograma = 512;
         carpetaSalida = "/home/erick/data/salidas/";
-        file = "/home/erick/data/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; Ge00Sb00Te100T823K.cpmd
+        file = "/home/erick/data/salidas/reduced_problematics.txt";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; Ge00Sb00Te100T823K.cpmd
         //file = "/home/erick/reduced.cpmd";
     }else{
         boxSize = std::stod(argv[1]);
@@ -434,8 +434,10 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
     string trayectoria;
     std::map<Atomo,vector<Atomo>> vecinos;
     std::ofstream out_posiciones;
+    std::ofstream out_tray_prob;
 
     out_posiciones.open(carpetaSalida+"periodic_pos_angulos.txt");
+    out_tray_prob.open(carpetaSalida+"less_inputs.txt");
         // de lo contrario, se crea un archivo de prueba (que es más pequeño)
     while (std::getline(input_file,trayectoria)){
         //se crea un vector llamado partes, ya que cada línea la dividiremos por los espacios en blanco que contiene
@@ -469,6 +471,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
          * Se llama al método que calcula las posiciones periódicas, se le pasan las posiciones en x,y,z, el tamaño de la caja
          * y la mitad de la caja para calcularlas
          * */
+
         
         calculaPosicionesPeriodicas(periodics, atomo.getrx(), atomo.getry(), atomo.getrz(), boxSize,mitadCaja);
         
@@ -500,6 +503,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
     }
 
 out_posiciones.close();
+out_tray_prob.close();
     //crear un archivo para volcar el contenido del histograma
     std::ofstream salidaAngulos;
     double area_bajo_angulos = integral(*histAngulos,tamHistAngulos);
