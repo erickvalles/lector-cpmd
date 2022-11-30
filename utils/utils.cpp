@@ -534,7 +534,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 double anguloGrad = anguloRad*180/M_PI;
                 problematicos << a1.getId() <<"  "<< vFijo.getId() <<" "<<a2.getId() << "   "<<anguloGrad<< std::endl; 
                 if(anguloGrad < 12 && anguloGrad > 10){
-                    //std::cout << trayectoria << std::endl;
+                    std::cout << trayectoria << std::endl;
                    // std::cout << "periodicas" << a1.getPrx() <<" " << a2.getPrx() << std::endl;
                     //probs << trayectoria << std::endl;                    
                 }
