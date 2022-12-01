@@ -507,7 +507,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
     for(it=vecinos.begin(); it!=vecinos.end(); it++){
         Atomo a1 = it->first;
         //obtener los vecinos de a1
-        
+        int id = a1.getId();
         //vector<Atomo> vecinosTriada = ordenarPorDistancia(it->second);
         vector<Atomo> vecinosTriada = it->second;
         //std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
