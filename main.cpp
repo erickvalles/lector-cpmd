@@ -45,7 +45,7 @@ int main(int argc, char **argv) {//recibir como args
         // Se pide el tamaño del histograma que se utilizará
         tamHistograma = 512;
         carpetaSalida = "/home/erick/data/salidas/";
-        file = "/home/erick/data/one.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; Ge00Sb00Te100T823K.cpmd
+        file = "/home/erick/data/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; Ge00Sb00Te100T823K.cpmd
         //file = "out.xx";
     }else{
         boxSize = std::stod(argv[1]);
@@ -381,6 +381,7 @@ int gdr_main(double boxSize, int numeroAtomos, int tamHistograma, std::string ca
 }
 
 int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, double boxSize){
+
     cout << "Se calcularán los ángulos" <<endl;
      // Se calcula la mitad de la caja aquí mismo por razones de rendimiento. 
     double mitadCaja = boxSize/2;
@@ -520,4 +521,12 @@ out_tray_prob.close();
     }
 
     return 0;
+}
+
+int difusion(){
+    std::ifstream in8k;
+    in8k.open("/home/erick/data/TRAJECTORY_00_Te_T823K.cpmd");
+    char buf[8192];
+    in8k.rdbuf()->pubsetbuf(buf, sizeof(buf));
+
 }

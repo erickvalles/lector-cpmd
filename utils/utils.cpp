@@ -425,7 +425,7 @@ float distanciaAtomos(Atomo a1, Atomo a2){
 void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos, vector<double> *histAngulos, double deltaAng, std::string trayectoria){
     //file:///D:/tesis/libros/computer_simultation_of_liquids.pdf pp. 162
     //vector con vectores (triadas) que serán iterados después
-    vector<vector<Atomo>> vec;
+    //vector<vector<Atomo>> vec;
     bool esVecino = false;
     int cont1 = 0;
     int cont2 = 0;
