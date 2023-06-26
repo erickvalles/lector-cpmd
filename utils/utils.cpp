@@ -9,6 +9,23 @@
 #include </usr/include/fftw3.h>
 #include <map>
 
+/** ver cómo funcionaría esto*/
+void calcularPosicionPeriodica(double tamanoCaja) {
+    double cambio;
+
+    cambio = floor(rx / tamanoCaja);
+    rx -= cambio * tamanoCaja;
+    prx += cambio * tamanoCaja;
+
+    cambio = floor(ry / tamanoCaja);
+    ry -= cambio * tamanoCaja;
+    pry += cambio * tamanoCaja;
+
+    cambio = floor(rz / tamanoCaja);
+    rz -= cambio * tamanoCaja;
+    prz += cambio * tamanoCaja;
+}
+
 void calculaPosicionesPeriodicas(double *posPeriodicas,const double rx, const double ry, const double rz, double boxSize, double halfBox){
 
 
