@@ -1,5 +1,5 @@
 {
-    "configurations": [
+  "configurations": [
     {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
@@ -17,8 +17,7 @@
           "text": "-enable-pretty-printing",
           "ignoreFailures": true
         }
-      ],
-      "preLaunchTask": "g++ build active file with not optimized shit"
+      ]
     },
     {
       "name": "Casa",
@@ -27,8 +26,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/erick/projects/lector-cpmd",
-      "program": "/home/erick/projects/lector-cpmd/main",
+      "cwd": "/home/erick/code/lector-cpmd",
+      "program": "/home/erick/code/lector-cpmd/main",
       "MIMode": "gdb",
       "miDebuggerPath": "/usr/bin/gdb",
       "setupCommands": [

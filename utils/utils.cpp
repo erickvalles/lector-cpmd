@@ -9,31 +9,12 @@
 #include </usr/include/fftw3.h>
 #include <map>
 
-/** ver cómo funcionaría esto*/
-void calcularPosicionPeriodica(double tamanoCaja) {
-    double cambio;
 
-    cambio = floor(rx / tamanoCaja);
-    rx -= cambio * tamanoCaja;
-    prx += cambio * tamanoCaja;
-
-    cambio = floor(ry / tamanoCaja);
-    ry -= cambio * tamanoCaja;
-    pry += cambio * tamanoCaja;
-
-    cambio = floor(rz / tamanoCaja);
-    rz -= cambio * tamanoCaja;
-    prz += cambio * tamanoCaja;
-}
 
 void calculaPosicionesPeriodicas(double *posPeriodicas,const double rx, const double ry, const double rz, double boxSize, double halfBox){
-
-
         posPeriodicas[0] = evaluaCajaRecursivo(rx,boxSize, halfBox);
         posPeriodicas[1] = evaluaCajaRecursivo(ry,boxSize, halfBox);
         posPeriodicas[2] = evaluaCajaRecursivo(rz,boxSize, halfBox);
-
-
 }
 
 
@@ -51,7 +32,7 @@ double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox){
     return posicion;
 }
 
-void normalizarHistograma(vector<double> *histo, vector<double> *histo_norm, int n_atomos, int tam_histograma, double delta, double boxSize, int vecesHistograma){
+void normalizarHistograma(vector<double> histo, vector<double> histo_norm, int n_atomos, int tam_histograma, double delta, double boxSize, int vecesHistograma){
     double volumen = boxSize*boxSize*boxSize;
     //double pi = M_PI;
     double factor_normalizacion = volumen/(2*M_PI*n_atomos*n_atomos*delta*vecesHistograma);
@@ -60,30 +41,26 @@ void normalizarHistograma(vector<double> *histo, vector<double> *histo_norm, int
     int i = 0;
 
 
-    for(int el_hist:*histo){
+    for(int el_hist:histo){
         r=(i-0.5)*delta;
-        (*histo_norm)[i]=(el_hist*factor_normalizacion)/(r*r);
+        histo_norm[i]=(el_hist*factor_normalizacion)/(r*r);
         i++;
     }
 }
 
-void histograma(vector<Atomo> atomos,int n_atomos, double delta, vector<double> *histo, double boxSize, double mitadCaja){
-    // std::cout << "Calculando histograma " << std::endl;
-    //vector<int> hist(tamanio,0);
-    //TimerBaseChrono tc("comienza histograma");
-    //tc.Start();
+void histograma(const vector<Atomo>& atomos,int n_atomos, double delta, vector<double> &histo, double boxSize, double mitadCaja){
+    
     vector<Atomo> vecinos;
     
     int no_cumplen = 0;
     double distancias[3] = {0,0,0};
     for (int iteracion = 0; iteracion<n_atomos;iteracion++) {
-        //TimerBaseChrono tdist("recorrer atomo ");
-        //tdist.Start();
+        
         for ( int it2=iteracion+1;it2<n_atomos; it2++) {
-            //std::cout << "Lectura   "<< i << std::endl;
+            //std::cout << "Lectura   "<< it2 << " y " << iteracion << std::endl;
             
                       
-            calcula_dist_componentes(distancias,atomos[iteracion],atomos[it2],boxSize,mitadCaja);
+            calcula_dist_componentes(distancias,atomos.at(iteracion),atomos.at(it2),boxSize,mitadCaja);
 
             // std::cout << "Lectura   "<< j << std::endl;
 
@@ -95,29 +72,17 @@ void histograma(vector<Atomo> atomos,int n_atomos, double delta, vector<double> 
 
             if(distancia<mitadCaja){//falta obtener las imágenes también de aquí, restando a la distancia el tamaño de la caja
                 position = distancia/delta;
-                (*histo)[position] += 1;
-
-            }/*else{
-                double imgx = verificaComponenteParaImagen(distancias[0],boxSize,mitadCaja);
-                double imgy = verificaComponenteParaImagen(distancias[1],boxSize,mitadCaja);
-                double imgz = verificaComponenteParaImagen(distancias[2],boxSize,mitadCaja);
-
-                double dist_comp_img[3] = {imgx,imgy,imgz};
-
-                distancia2 = calculaDistancia(dist_comp_img);
-
-                distancia = sqrt(distancia2);
-                if(distancia<mitadCaja){
-                    position = distancia/delta;
-                    (*histo)[position] += 1;
+                if(position < histo.size()){
+                    histo[position] += 1;
+                }else{
+                    //std::cout << "La posición " << position <<"Se sale del histograma" << std::endl;
                 }
-            }*/
+                
 
-            //std::cout << "recorrer 300 tarda "<< tdist.GetMs() << std::endl;
+            }
         }
-        //tc.getTime();
+        
     }
-    //std::cout << "por pasada no cumplen: "<< no_cumplen << std::endl;
 
 }
 
@@ -184,7 +149,6 @@ void calcula_dist_componentes(double *distancias, Atomo a1, Atomo a2, double box
     double pery2 = a2.getPry();
     double perz1 = a1.getPrz();
     double perz2 = a2.getPrz();
-    
     double compx = perx2-perx1;
     //std::cout << perx2 <<"-"<<perx1<<"=" <<compx << std::endl;
     
@@ -193,7 +157,7 @@ void calcula_dist_componentes(double *distancias, Atomo a1, Atomo a2, double box
     //std::cout << pery2 <<"-"<<pery1 <<"=" << compy << std::endl;
     
     double compz = perz2-perz1;
-    //std::cout << perz2 <<"-"<<perz1 <<"="<<compz << std::endl;
+    //std::cout <<" aquí sí llega"<< std::endl;
     
     distancias[0]=verificaComponenteParaImagen(compx,boxSize, halfBox);
     distancias[1]=verificaComponenteParaImagen(compy,boxSize, halfBox);
@@ -278,8 +242,8 @@ double integral(vector <double> funcion_integrar, int n_divisiones){ //determina
 }
 
 
-void numerosCoordinacion(vector<double> *gdr, vector<double> *coordinaciones, double delta, double rho) {
-    double tam = gdr->size();
+void numerosCoordinacion(vector<double> gdr, vector<double> coordinaciones, double delta, double rho) {
+    double tam = gdr.size();
 
 
     double suma = 0;
@@ -288,12 +252,12 @@ void numerosCoordinacion(vector<double> *gdr, vector<double> *coordinaciones, do
 
     for(int i = 0; i<tam; i++){
         double r = (i-0.5)*delta;
-        double n_c = integral_simple((*gdr)[i],r, delta);//densidad, n_partixulas/volumen
+        double n_c = integral_simple(gdr[i],r, delta);//densidad, n_partixulas/volumen
         double n_coor = n_c*4*M_PI*rho;
 
         //double tota = actual+anterior;
         suma += n_coor;
-        (*coordinaciones)[i]=suma;
+        coordinaciones[i]=suma;
         //anterior = n_coor;
         //imprimo a un archivo
 
@@ -301,7 +265,7 @@ void numerosCoordinacion(vector<double> *gdr, vector<double> *coordinaciones, do
 
 }
 
-void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, double rho, string dirSalida, double delta){
+void factorEstructuraE(vector<double> gdr, int tamHistograma, double delta_k, double rho, string dirSalida, double delta){
     //std::cout << "Entramos a la transformada" << std::endl;
     
     //double factor = 16*rho*((2*M_PI)/delta_k*tamHistograma);
@@ -313,7 +277,7 @@ void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, d
     
     for(i=0;i<MAX;i++){
         if(i<tamHistograma){
-            in[i][0] = (*gdr)[i];
+            in[i][0] = gdr[i];
             
         }else{
         in[i][0]=1;
@@ -324,7 +288,7 @@ void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, d
     
     std::ofstream testFile;
     
-    testFile.open(dirSalida+"test_file.txt");
+    testFile.open(dirSalida+"/"+"test_file.txt");
     for(i=0;i<MAX;i++){
         double r = delta*i;
         double valAnterior = in[i][0];
@@ -345,7 +309,8 @@ void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, d
     
     //j=-(N);
     std::ofstream vOndaPos;
-    vOndaPos.open(dirSalida+"vectores_onda_pos.txt");
+    string outVOndaPos = dirSalida+"/"+"vectores_onda_pos.txt";
+    vOndaPos.open(outVOndaPos);
     
     vOndaPos << " #          k                            F(Re)                        F(Im)                      norm(Re)                                  norm(Im)            " << std::endl; 
     for(i=0; i<N;i++){
@@ -359,11 +324,12 @@ void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, d
       //  j++;
         //en función de i, y en función de la frecuencia
     }
-    
+    std::cout << "vectores de onda pos:"<< outVOndaPos << std::endl;
     
     j = N;
     std::ofstream vOndaNeg;
-    vOndaNeg.open(dirSalida+"vectores_onda_neg.txt");
+    string outVOndaNeg = dirSalida+"/"+"vectores_onda_neg.txt";
+    vOndaNeg.open(outVOndaNeg);
     for(i=N; i<MAX;i++){
         double k = -j*delta_k;
         //double w = 2*M_PI*f;
@@ -371,7 +337,7 @@ void factorEstructuraE(vector<double> *gdr, int tamHistograma, double delta_k, d
         double val = out[i][0];
         vOndaNeg << std::setprecision(20) << i <<"     "<<k<<"         " << val <<"     " << out[i][1] << std::endl; 
     }
-    
+    std::cout << "vectores onda neg:"<<outVOndaNeg<<std::endl;
     
     fftw_destroy_plan(p);
     fftw_cleanup();
@@ -551,7 +517,7 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
                 double anguloGrad = anguloRad*180/M_PI;
                 problematicos << a1.getId() <<"  "<< vFijo.getId() <<" "<<a2.getId() << "   "<<anguloGrad<< std::endl; 
                 if(anguloGrad < 12 && anguloGrad > 10){
-                    std::cout << trayectoria << std::endl;
+                    //std::cout << trayectoria << std::endl;
                    // std::cout << "periodicas" << a1.getPrx() <<" " << a2.getPrx() << std::endl;
                     //probs << trayectoria << std::endl;                    
                 }
@@ -577,8 +543,25 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
 }
 
 
-/*std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos){
-    vector <Atomo> atomos_copy = vecinos;
-    std::sort(atomos_copy.begin(),atomos_copy.end());
-    return atomos_copy;
-}*/
+void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc){
+    if(argc < 2){
+        // Es el tamaño de la caja de simulación que se utilizará
+        boxSize = 22.3797;
+        // Se pide el número de átomos que se utilizaron en la dimámica molecular
+        numeroAtomos = 300;
+        // Se pide el tamaño del histograma que se utilizará
+        tamHistograma = 512;
+        carpetaSalida = "/home/erick/data/salidas";
+        file = "/home/erick/data/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; Ge00Sb00Te100T823K.cpmd
+        //file = "out.xx";
+        opc = 1;
+    }else{
+        boxSize = std::stod(argv[1]);
+        numeroAtomos = std::stoi(argv[2]);
+        tamHistograma = std::stoi(argv[3]);
+        file = argv[4];
+        carpetaSalida = argv[5];
+        opc = std::stoi(argv[6]);
+    }
+}
+
