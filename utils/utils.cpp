@@ -19,6 +19,15 @@ void calculaPosicionesPeriodicas(double *posPeriodicas,const double rx, const do
 
 
 double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox){
+    if (posicion >= halfBox) {
+        posicion -= boxSize;
+    } else if (posicion < -halfBox) {
+        posicion += boxSize;
+    }
+    return posicion;
+}
+
+/*double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox){
     bool reaplicar = false;
     if(posicion >= halfBox){
         posicion -= boxSize;
@@ -30,7 +39,7 @@ double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox){
         return posicion;
     }
     return posicion;
-}
+}*/
 
 void normalizarHistograma(vector<double> histo, vector<double> histo_norm, int n_atomos, int tam_histograma, double delta, double boxSize, int vecesHistograma){
     double volumen = boxSize*boxSize*boxSize;
