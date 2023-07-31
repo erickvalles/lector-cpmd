@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named gdr
+
+# Build rule for target.
+gdr: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gdr
+.PHONY : gdr
+
+# fast build rule for target.
+gdr/fast:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/build
+.PHONY : gdr/fast
+
+#=============================================================================
 # Target rules for targets named angulos
 
 # Build rule for target.
@@ -155,6 +168,7 @@ Atomo.o: Atomo.cpp.o
 
 # target to build an object file
 Atomo.cpp.o:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/Atomo.cpp.o
 	$(MAKE) -f CMakeFiles/angulos.dir/build.make CMakeFiles/angulos.dir/Atomo.cpp.o
 .PHONY : Atomo.cpp.o
 
@@ -164,6 +178,7 @@ Atomo.i: Atomo.cpp.i
 
 # target to preprocess a source file
 Atomo.cpp.i:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/Atomo.cpp.i
 	$(MAKE) -f CMakeFiles/angulos.dir/build.make CMakeFiles/angulos.dir/Atomo.cpp.i
 .PHONY : Atomo.cpp.i
 
@@ -173,6 +188,7 @@ Atomo.s: Atomo.cpp.s
 
 # target to generate assembly for a file
 Atomo.cpp.s:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/Atomo.cpp.s
 	$(MAKE) -f CMakeFiles/angulos.dir/build.make CMakeFiles/angulos.dir/Atomo.cpp.s
 .PHONY : Atomo.cpp.s
 
@@ -203,12 +219,40 @@ angulos.cpp.s:
 	$(MAKE) -f CMakeFiles/angulos.dir/build.make CMakeFiles/angulos.dir/angulos.cpp.s
 .PHONY : angulos.cpp.s
 
+gdr.o: gdr.cpp.o
+
+.PHONY : gdr.o
+
+# target to build an object file
+gdr.cpp.o:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/gdr.cpp.o
+.PHONY : gdr.cpp.o
+
+gdr.i: gdr.cpp.i
+
+.PHONY : gdr.i
+
+# target to preprocess a source file
+gdr.cpp.i:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/gdr.cpp.i
+.PHONY : gdr.cpp.i
+
+gdr.s: gdr.cpp.s
+
+.PHONY : gdr.s
+
+# target to generate assembly for a file
+gdr.cpp.s:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/gdr.cpp.s
+.PHONY : gdr.cpp.s
+
 utils/utils.o: utils/utils.cpp.o
 
 .PHONY : utils/utils.o
 
 # target to build an object file
 utils/utils.cpp.o:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/utils/utils.cpp.o
 	$(MAKE) -f CMakeFiles/angulos.dir/build.make CMakeFiles/angulos.dir/utils/utils.cpp.o
 .PHONY : utils/utils.cpp.o
 
@@ -218,6 +262,7 @@ utils/utils.i: utils/utils.cpp.i
 
 # target to preprocess a source file
 utils/utils.cpp.i:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/utils/utils.cpp.i
 	$(MAKE) -f CMakeFiles/angulos.dir/build.make CMakeFiles/angulos.dir/utils/utils.cpp.i
 .PHONY : utils/utils.cpp.i
 
@@ -227,6 +272,7 @@ utils/utils.s: utils/utils.cpp.s
 
 # target to generate assembly for a file
 utils/utils.cpp.s:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/utils/utils.cpp.s
 	$(MAKE) -f CMakeFiles/angulos.dir/build.make CMakeFiles/angulos.dir/utils/utils.cpp.s
 .PHONY : utils/utils.cpp.s
 
@@ -238,6 +284,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... gdr"
 	@echo "... angulos"
 	@echo "... tests"
 	@echo "... utils"
@@ -247,6 +294,9 @@ help:
 	@echo "... angulos.o"
 	@echo "... angulos.i"
 	@echo "... angulos.s"
+	@echo "... gdr.o"
+	@echo "... gdr.i"
+	@echo "... gdr.s"
 	@echo "... utils/utils.o"
 	@echo "... utils/utils.i"
 	@echo "... utils/utils.s"

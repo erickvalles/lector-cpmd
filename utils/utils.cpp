@@ -2,7 +2,7 @@
 // Created by Erick on 15/06/2020.
 //
 #include "utils.h"
-#include "cmath"
+#include <cmath>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -19,6 +19,12 @@ void calculaPosicionesPeriodicas(double *posPeriodicas,const double rx, const do
 
 
 double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox){
+    double residuo = fmod(posicion,boxSize);
+    if(residuo > halfBox){
+        residuo -= boxSize;
+    }else if(residuo < -halfBox){
+        residuo += boxSize;
+    }
     if (posicion >= halfBox) {
         posicion -= boxSize;
     } else if (posicion < -halfBox) {
@@ -41,7 +47,7 @@ double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox){
     return posicion;
 }*/
 
-void normalizarHistograma(vector<double> histo, vector<double> histo_norm, int n_atomos, int tam_histograma, double delta, double boxSize, int vecesHistograma){
+void normalizarHistograma(vector<double> histo, vector<double> &histo_norm, int n_atomos, int tam_histograma, double delta, double boxSize, int vecesHistograma){
     double volumen = boxSize*boxSize*boxSize;
     //double pi = M_PI;
     double factor_normalizacion = volumen/(2*M_PI*n_atomos*n_atomos*delta*vecesHistograma);
@@ -53,6 +59,7 @@ void normalizarHistograma(vector<double> histo, vector<double> histo_norm, int n
     for(int el_hist:histo){
         r=(i-0.5)*delta;
         histo_norm[i]=(el_hist*factor_normalizacion)/(r*r);
+        //std::cout << histo_norm[i] << std::endl;
         i++;
     }
 }
@@ -84,7 +91,7 @@ void histograma(const vector<Atomo>& atomos,int n_atomos, double delta, vector<d
                 if(position < histo.size()){
                     histo[position] += 1;
                 }else{
-                    //std::cout << "La posición " << position <<"Se sale del histograma" << std::endl;
+                   // std::cout << "La posición " << position <<"Se sale del histograma" << std::endl;
                 }
                 
 
@@ -152,6 +159,30 @@ void histograma(const vector<Atomo>& atomos,int n_atomos, double delta, vector<d
 
 void calcula_dist_componentes(double *distancias, Atomo a1, Atomo a2, double boxSize, double halfBox){
     
+    double rx1 = a1.getrx();
+    double rx2 = a2.getrx();
+    double ry1 = a1.getry();
+    double ry2 = a2.getry();
+    double rz1 = a1.getrz();
+    double rz2 = a2.getrz();
+    
+    double compx = rx1-rx2;
+    //std::cout << perx2 <<"-"<<perx1<<"=" <<compx << std::endl;
+    
+    
+    double compy = ry1-ry2;
+    //std::cout << pery2 <<"-"<<pery1 <<"=" << compy << std::endl;
+    
+    double compz = rz1-rz2;
+    //std::cout <<" aquí sí llega"<< std::endl;
+    
+    distancias[0]=verificaComponenteParaImagen(compx,boxSize, halfBox);
+    distancias[1]=verificaComponenteParaImagen(compy,boxSize, halfBox);
+    distancias[2]=verificaComponenteParaImagen(compz,boxSize, halfBox);
+    
+}
+/*void calcula_dist_componentesAnt(double *distancias, Atomo a1, Atomo a2, double boxSize, double halfBox){
+    
     double perx1 = a1.getPrx();
     double perx2 = a2.getPrx();
     double pery1 = a1.getPry();
@@ -172,29 +203,47 @@ void calcula_dist_componentes(double *distancias, Atomo a1, Atomo a2, double box
     distancias[1]=verificaComponenteParaImagen(compy,boxSize, halfBox);
     distancias[2]=verificaComponenteParaImagen(compz,boxSize, halfBox);
     
-}
-
-
+}*/
 
 double verificaComponenteParaImagen(double dif_componentes, double boxSize, double halfBox){//usar esta angulos
     
+    double residuo = fmod(dif_componentes,boxSize);
+    
+    if(residuo > halfBox){
+        residuo -= boxSize;
+    }else if(residuo < -halfBox){
+        residuo += boxSize;
+    }
+    
+    return residuo;
+}
+
+/*double verificaComponenteParaImagen(double dif_componentes, double boxSize, double halfBox){//usar esta angulos
+    int veces;
+    veces = floor(dif_componentes/(boxSize));
+    std::cout << "modulo: " << dif_componentes << "   " << boxSize <<"       "<< veces << std::endl;
+    
+   
+
     if(dif_componentes > 0){
-        return dif_componentes>(halfBox)?dif_componentes-boxSize:dif_componentes;
+        return dif_componentes>(halfBox)?dif_componentes-(boxSize*veces):dif_componentes;
     }
     if(dif_componentes < 0){
-        return dif_componentes<(-halfBox)?dif_componentes+boxSize:dif_componentes;//esto es correcto, lo verifiqué y funciona
+        return dif_componentes<(-halfBox)?dif_componentes+(boxSize*veces):dif_componentes;//esto es correcto, lo verifiqué y funciona
     }
     
     return dif_componentes;
-}
+}*/
 
 double verificaComponenteR(double componente, double boxSize, double halfBox){
-    if(componente >= halfBox){
-        componente = componente - boxSize;
+    int veces;
+    veces = floor(componente/halfBox);
+    if(componente > halfBox){
+        componente = componente - (boxSize*veces);
         componente = verificaComponenteR(componente,boxSize,halfBox);
-    } else if(componente <= -halfBox){
-        componente = componente + boxSize;
-        componente = evaluaCajaRecursivo(componente,boxSize,halfBox);
+    } else if(componente < -halfBox){
+        componente = componente + (boxSize*veces);
+        componente = verificaComponenteR(componente,boxSize,halfBox);
         
     }
     
@@ -204,8 +253,8 @@ double verificaComponenteR(double componente, double boxSize, double halfBox){
 
 
 double calculaDelta(double boxSize, int tamHistograma){
-    //return (boxSize/2)/tamHistograma;
-    return 10.0/tamHistograma;
+    return (boxSize/2)/tamHistograma;
+    //return 10.0/tamHistograma;
 }
 
 double calculaDistancia(double *distancias){
@@ -251,7 +300,7 @@ double integral(vector <double> funcion_integrar, int n_divisiones){ //determina
 }
 
 
-void numerosCoordinacion(vector<double> gdr, vector<double> coordinaciones, double delta, double rho) {
+void numerosCoordinacion(vector<double> gdr, vector<double> &coordinaciones, double delta, double rho) {
     double tam = gdr.size();
 
 
@@ -429,68 +478,13 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
             Atomo atomo2 = aa2;
             
             if(atomo1.getId()!=atomo2.getId()){
-                double distancias_comp[3] = {0,0,0};
-                calcula_dist_componentes(distancias_comp,atomo1,atomo2,boxSize,mitadCaja);
-
-                // std::cout << "Lectura   "<< j << std::endl;
-
-                double distancia2 = calculaDistancia(distancias_comp);
-            //
-            //double distancia = sqrtf(distancia2);|| (atomo1.getId()==0 && atomo2.getId()==45)
-
-                double distancia = sqrt(distancia2);
-               /* if((atomo1.getId()==0 && atomo2.getId()==94) ){
-                        std::cout << "dist entre 0 y 94: " << distancia << std::endl;
-                }
-                if((atomo1.getId()==0 && atomo2.getId()==45)){
-                        std::cout << "dist entre 0 y 45: " << distancia << std::endl;
-                }*/
-		double algo;
-            
-                    if(distancia<=mitadCaja){
-                        if(distancia<r_min){//imágenes
-                            //if((atomo1.getId()==0 && atomo2.getId()==94) || (atomo1.getId()==0 && atomo2.getId()==45)){
-                               // std::cout << distancia << std::endl;
-                            //}
-                            esVecino = true;
-                            //atomo2.distanciaVecino = distancia;
-                        }else{
-                            esVecino = false;
-                        }
-
-                    }else{
-                        double imgx = verificaComponenteParaImagen(distancias_comp[0],boxSize,mitadCaja);
-                        double imgy = verificaComponenteParaImagen(distancias_comp[1],boxSize,mitadCaja);
-                        double imgz = verificaComponenteParaImagen(distancias_comp[2],boxSize,mitadCaja);
-
-                        double dist_comp_img[3] = {imgx,imgy,imgz};
-
-                        double otraDistancia2 = calculaDistancia(dist_comp_img);
-
-                        double OtraDistancia = sqrt(otraDistancia2);
-                         
-                        if(OtraDistancia<=mitadCaja){
-                            if(OtraDistancia<r_min){
-                                esVecino = true;
-                               // atomo2.distanciaVecino = OtraDistancia;
-                                //if((atomo1.getId()==0 && atomo2.getId()==94) || (atomo1.getId()==0 && atomo2.getId()==45)){
-                                    //std::cout << distancia << " imagen" << std::endl;
-                                //}
-                            
-                            //vecinos[atomo1].push_back(atomo2);
-                            }else{
-                                esVecino = false;
-                            }
-                        }
-                        
-                    }
-                    if(esVecino){
-                        vecinos[atomo1].push_back(atomo2);
-                    }
-                    esVecino = false;
+                bool esVecino = verificaVecindad(atomo1, atomo2, r_min, mitadCaja, boxSize);
+                if(esVecino){
+                    vecinos[atomo1].push_back(atomo2);
                 }
             }
         }
+    }
     std::map<Atomo,vector<Atomo>>::iterator it;
     std::ofstream problematicos;
     std::ofstream probs;
@@ -550,6 +544,29 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
     probs.close();
 
 }
+
+bool verificaVecindad(Atomo a1, Atomo a2, double r_min, double mitadCaja, double boxSize){
+    double distancias_comp[3] = {0,0,0};
+    calcula_dist_componentes(distancias_comp,a1,a2,boxSize,mitadCaja);
+
+    double distancia2 = calculaDistancia(distancias_comp);
+    double distancia = sqrt(distancia2);
+
+    bool esVecino = false;
+    if(distancia<=mitadCaja){
+        if(distancia<r_min){
+            esVecino = true;
+        }else{
+            esVecino = false;
+        }
+    }else{
+        std::cout << "no debería estar aquí" << std::endl;
+        esVecino = false;
+    }
+    
+    return esVecino;
+}
+
 
 
 void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc){

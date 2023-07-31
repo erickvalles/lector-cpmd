@@ -53,6 +53,7 @@ CMAKE_BINARY_DIR = /home/erick/code/lector-cpmd/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/gdr.dir/all
 all: CMakeFiles/angulos.dir/all
 all: tests/all
 all: utils/all
@@ -66,6 +67,7 @@ preinstall: utils/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/gdr.dir/clean
 clean: CMakeFiles/angulos.dir/clean
 clean: tests/clean
 clean: utils/clean
@@ -109,6 +111,33 @@ utils/clean: utils/CMakeFiles/utils.dir/clean
 .PHONY : utils/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/gdr.dir
+
+# All Build rule for target.
+CMakeFiles/gdr.dir/all:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/depend
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=5,6,7,8 "Built target gdr"
+.PHONY : CMakeFiles/gdr.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/gdr.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gdr.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 0
+.PHONY : CMakeFiles/gdr.dir/rule
+
+# Convenience name for target.
+gdr: CMakeFiles/gdr.dir/rule
+
+.PHONY : gdr
+
+# clean rule for target.
+CMakeFiles/gdr.dir/clean:
+	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/clean
+.PHONY : CMakeFiles/gdr.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/angulos.dir
 
 # All Build rule for target.
@@ -142,7 +171,7 @@ CMakeFiles/angulos.dir/clean:
 tests/CMakeFiles/tests.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f tests/CMakeFiles/tests.dir/build.make tests/CMakeFiles/tests.dir/depend
 	$(MAKE) -f tests/CMakeFiles/tests.dir/build.make tests/CMakeFiles/tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=5,6,7 "Built target tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=9,10,11 "Built target tests"
 .PHONY : tests/CMakeFiles/tests.dir/all
 
 # Build rule for subdir invocation for target.
@@ -169,7 +198,7 @@ tests/CMakeFiles/tests.dir/clean:
 utils/CMakeFiles/utils.dir/all:
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/depend
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=8,9 "Built target utils"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=12,13 "Built target utils"
 .PHONY : utils/CMakeFiles/utils.dir/all
 
 # Build rule for subdir invocation for target.
