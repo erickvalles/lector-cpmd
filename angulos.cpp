@@ -38,8 +38,9 @@ int main(int argc, char **argv) {//recibir como args
     string carpetaSalida;
     string file;
     int opc;
+    float r_min;
     
-    obtenerArgumentos(argc, argv, boxSize, numeroAtomos, tamHistograma, carpetaSalida, file, opc);
+    obtenerArgumentos(argc, argv, boxSize, numeroAtomos, tamHistograma, carpetaSalida, file, opc, r_min);
 
     cout << "el directorio de salida es: "<<carpetaSalida << endl;
     cout << "el file a leer es: "<< file << endl;
@@ -103,6 +104,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
     double deltaAng = 180.0/tamHistAngulos;
     std::cout << deltaAng << endl;
     vector<double> *histAngulos = {nullptr};
+    double halfBox = boxSize/2;
     histAngulos = new vector<double>(tamHistAngulos,0.0);
     // Se crea una variable que leerá todo un renglón del archivo
     string trayectoria;
@@ -162,7 +164,9 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
         if(n_atoms==numeroAtomos){
            //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
            //aquí debo llamar a la función que calcule la lista de vecinos
-           listaVecinos(*atomos,n_atoms,3.2,mitadCaja, boxSize, vecinos, histAngulos, deltaAng, trayectoria);
+           //listaVecinos(*atomos,n_atoms,3.2,mitadCaja, boxSize, vecinos, histAngulos, deltaAng, trayectoria);
+           vecinosMejorada(atomos,r_min,boxSize, halfBox);
+           
            (*atomos).clear();
             n_atoms = 0;
 

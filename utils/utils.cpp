@@ -9,7 +9,9 @@
 #include </usr/include/fftw3.h>
 #include <map>
 
-
+struct Celda {
+    std::vector<Atomo*> atomos;
+};
 
 void calculaPosicionesPeriodicas(double *posPeriodicas,const double rx, const double ry, const double rz, double boxSize, double halfBox){
         posPeriodicas[0] = evaluaCajaRecursivo(rx,boxSize, halfBox);
@@ -463,6 +465,103 @@ float distanciaAtomos(Atomo a1, Atomo a2){
     return a1.distancia(a2.getPrx(),a2.getPry(),a2.getPrz());
 }
 
+void vecinosMejorada(vectr<Atomo> atomos, double r_min, double boxSize, double mitadCaja){
+    int numCeldasPorDim = ceil(boxSize/r_min);
+    std::vector<std::vector<std::vector<Celda>>> celdas(numCeldasPorDim, std::vector<std::vector<Celda>>(numCeldasPorDim, std::vector<Celda>(numCeldasPorDim)));
+    for(auto& atomo : atomos) {
+        int x = floor(atomo.getrx() / r_min);
+        int y = floor(atomo.getry() / r_min);
+        int z = floor(atomo.getrz() / r_min);
+        celdas[x][y][z].atomos.push_back(&atomo);
+    }
+
+    std::vector<std::vector<int>> offsets = {
+        {-1, -1, -1}, {0, -1, -1}, {1, -1, -1},
+        {-1,  0, -1}, {0,  0, -1}, {1,  0, -1},
+        {-1,  1, -1}, {0,  1, -1}, {1,  1, -1},
+        {-1, -1,  0}, {0, -1,  0}, {1, -1,  0},
+        {-1,  0,  0}, {0,  0,  0}, {1,  0,  0},
+        {-1,  1,  0}, {0,  1,  0}, {1,  1,  0},
+        {-1, -1,  1}, {0, -1,  1}, {1, -1,  1},
+        {-1,  0,  1}, {0,  0,  1}, {1,  0,  1},
+        {-1,  1,  1}, {0,  1,  1}, {1,  1,  1},
+    };
+    std::unordered_map<Atomo, std::vector<Atomo>> listaVecinos;
+    for(int i = 0; i < numCeldasPorDim; ++i) {
+        for(int j = 0; j < numCeldasPorDim; ++j) {
+            for(int k = 0; k < numCeldasPorDim; ++k) {
+                Celda& celda = celdas[i][j][k];
+
+                for(auto& atomo1 : celda.atomos) {
+                    for(auto& offset : offsets) {
+                        int ii = (i + offset[0] + numCeldasPorDim) % numCeldasPorDim;
+                        int jj = (j + offset[1] + numCeldasPorDim) % numCeldasPorDim;
+                        int kk = (k + offset[2] + numCeldasPorDim) % numCeldasPorDim;
+
+                        Celda& celda_vecina = celdas[ii][jj][kk];
+
+                        for(auto& atomo2 : celda_vecina.atomos) {
+                            if(atomo1 != atomo2) {
+                               if(verificaVecindad(atomo1, atomo2, r_min, mitadCaja, boxSize)){
+                                    listaVecinos[atomo1].push_back(atomo2);
+                               }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    for(it=listaVecinos.begin(); it!=listaVecinos.end(); it++){
+        Atomo atomoA = it->first;
+        //obtener los vecinos de a1
+        int id = atomoA.getId();
+        //vector<Atomo> vecinosTriada = ordenarPorDistancia(it->second);
+        vector<Atomo> vecinos = it->second;
+        //std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
+        for (int i=0; i < vecinos.size() -1 ; i++){
+            //iterar después del atomo actual
+            Atomo atomoB = vecinos[i];
+            Atomo atomoC = vecinos[i + 1];
+
+            std::cout << "Base = "<< id << "vecinos" << atomoB.getId() <<"    "<< atomoC.getId() << std::endl;
+            
+            vector<double> rAB = atomoA.vectorDifference(atomoB);
+            vector<double> rCB = atomoC.vectorDifference(atomoB);
+            
+                
+            //calcular el producto punto de los vectores v1 y v2
+            double productoPunto = rAB[0]*rCB[0] + rAB[1]*rCB[1] + rAB[2]*rCB[2];
+            //calcular el modulo del vector v1
+            double mrAB = sqrt(rAB[0]*rAB[0] + rAB[1]*rAB[1] + rAB[2]*rAB[2]);
+            //calcular el modulo del vector v2
+            double mrCB = sqrt(rCB[0]*rCB[0] + rCB[1]*rCB[1] + rCB[2]*rCB[2]);
+            //calcular el angulo entre los vectores v1 y v2
+            double anguloRad = acos(productoPunto/(mrAB*mrCB));
+            //convertir el angulo a grados
+            double anguloGrad = anguloRad*180/M_PI;
+            
+            
+            int pos = 0;
+            
+            pos = anguloGrad/deltaAng;
+            //imprimir la posicion en la que quedará
+            //std::cout << "Pos = "<< anguloGrad << "/" << deltaAng <<"="<<pos << std::endl;
+            //incrementar esa posicion en el histograma	
+            (*histAngulos)[pos]+=1;
+            //imprimir cuantos elementos en esa posicion hay
+            //std::cout << "Histograma["<<pos<<"]="<<(*histAngulos)[pos]<<std::endl;
+            
+            
+            
+        }
+        vecinosTriada.clear();
+        
+    }
+
+}
+
 void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize, std::map<Atomo,vector<Atomo>> vecinos, vector<double> *histAngulos, double deltaAng, std::string trayectoria){
     //file:///D:/tesis/libros/computer_simultation_of_liquids.pdf pp. 162
     //vector con vectores (triadas) que serán iterados después
@@ -567,7 +666,7 @@ bool verificaVecindad(Atomo a1, Atomo a2, double r_min, double mitadCaja, double
 
 
 
-void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc){
+void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc, float r_min){
     if(argc < 2){
         // Es el tamaño de la caja de simulación que se utilizará
         boxSize = 22.3797;
@@ -579,6 +678,7 @@ void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos
         file = "/home/erick/data/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; Ge00Sb00Te100T823K.cpmd
         //file = "out.xx";
         opc = 1;
+        r_min = 3.2;
     }else{
         boxSize = std::stod(argv[1]);
         numeroAtomos = std::stoi(argv[2]);
@@ -586,6 +686,7 @@ void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos
         file = argv[4];
         carpetaSalida = argv[5];
         opc = std::stoi(argv[6]);
+        r_min = std::stod(argv[7]);
     }
 }
 
