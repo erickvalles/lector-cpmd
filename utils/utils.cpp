@@ -208,7 +208,7 @@ void calcula_dist_componentes(double *distancias, Atomo a1, Atomo a2, double box
 double verificaComponenteParaImagen(double dif_componentes, double boxSize, double halfBox){//usar esta angulos
     
     double residuo = fmod(dif_componentes,boxSize);
-    
+    //std::cout <<residuo << dif_componentes << std::endl;
     if(residuo > halfBox){
         residuo -= boxSize;
     }else if(residuo < -halfBox){
@@ -553,15 +553,13 @@ bool verificaVecindad(Atomo a1, Atomo a2, double r_min, double mitadCaja, double
     double distancia = sqrt(distancia2);
 
     bool esVecino = false;
+    //std::cout << "Distancia="<<distancia<<std::endl;
     if(distancia<=mitadCaja){
         if(distancia<r_min){
             esVecino = true;
         }else{
             esVecino = false;
         }
-    }else{
-        std::cout << "no debería estar aquí" << std::endl;
-        esVecino = false;
     }
     
     return esVecino;
