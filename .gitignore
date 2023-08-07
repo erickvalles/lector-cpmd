@@ -1,4 +1,2 @@
-*.txt
-otra_salida
-googletest/
-main
+link.*
+TargetDirectories.txt
