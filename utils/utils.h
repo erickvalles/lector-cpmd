@@ -43,7 +43,8 @@ void factorEstructuraE(vector<double> gdr, int tamHistograma, double delta_k, do
 void sk(double *gdr, int tamHistograma, double delta_k, double rho, string dirSalida, double delta);
 void distribucionAngulos(int numeroAtomos, std::string carpetaSalida, std::string file);
 void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadCaja, double boxSize,std::map<Atomo,vector<Atomo>> vecinos,vector<double> *histAngulos, double deltaAng, std::string trayectoria);
+void vecinosMejorada(vectr<Atomo> atomos, double r_min, double boxSize, double mitadCaja);
 bool verificaVecindad(Atomo a1, Atomo a2, double r_min, double mitadCaja, double boxSize);
-void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc);
+void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc, float r_min);
 //std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos);
 #endif //CPF_UTILS_H
