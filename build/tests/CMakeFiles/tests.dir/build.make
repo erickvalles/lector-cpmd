@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/erick/code/lector-cpmd
+CMAKE_SOURCE_DIR = /home/erick/projects/lector-cpmd
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/erick/code/lector-cpmd/build
+CMAKE_BINARY_DIR = /home/erick/projects/lector-cpmd/build
 
 # Include any dependencies generated for this target.
 include tests/CMakeFiles/tests.dir/depend.make
@@ -59,29 +59,29 @@ include tests/CMakeFiles/tests.dir/flags.make
 
 tests/CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.o: tests/CMakeFiles/tests.dir/flags.make
 tests/CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.o: ../tests/test_calculaPosicionesPeriodicas.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object tests/CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.o"
-	cd /home/erick/code/lector-cpmd/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.o -c /home/erick/code/lector-cpmd/tests/test_calculaPosicionesPeriodicas.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object tests/CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.o"
+	cd /home/erick/projects/lector-cpmd/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.o -c /home/erick/projects/lector-cpmd/tests/test_calculaPosicionesPeriodicas.cpp
 
 tests/CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.i"
-	cd /home/erick/code/lector-cpmd/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/code/lector-cpmd/tests/test_calculaPosicionesPeriodicas.cpp > CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.i
+	cd /home/erick/projects/lector-cpmd/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/projects/lector-cpmd/tests/test_calculaPosicionesPeriodicas.cpp > CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.i
 
 tests/CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.s"
-	cd /home/erick/code/lector-cpmd/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/code/lector-cpmd/tests/test_calculaPosicionesPeriodicas.cpp -o CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.s
+	cd /home/erick/projects/lector-cpmd/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/projects/lector-cpmd/tests/test_calculaPosicionesPeriodicas.cpp -o CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.s
 
 tests/CMakeFiles/tests.dir/__/Atomo.cpp.o: tests/CMakeFiles/tests.dir/flags.make
 tests/CMakeFiles/tests.dir/__/Atomo.cpp.o: ../Atomo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object tests/CMakeFiles/tests.dir/__/Atomo.cpp.o"
-	cd /home/erick/code/lector-cpmd/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tests.dir/__/Atomo.cpp.o -c /home/erick/code/lector-cpmd/Atomo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object tests/CMakeFiles/tests.dir/__/Atomo.cpp.o"
+	cd /home/erick/projects/lector-cpmd/build/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tests.dir/__/Atomo.cpp.o -c /home/erick/projects/lector-cpmd/Atomo.cpp
 
 tests/CMakeFiles/tests.dir/__/Atomo.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tests.dir/__/Atomo.cpp.i"
-	cd /home/erick/code/lector-cpmd/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/code/lector-cpmd/Atomo.cpp > CMakeFiles/tests.dir/__/Atomo.cpp.i
+	cd /home/erick/projects/lector-cpmd/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/projects/lector-cpmd/Atomo.cpp > CMakeFiles/tests.dir/__/Atomo.cpp.i
 
 tests/CMakeFiles/tests.dir/__/Atomo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tests.dir/__/Atomo.cpp.s"
-	cd /home/erick/code/lector-cpmd/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/code/lector-cpmd/Atomo.cpp -o CMakeFiles/tests.dir/__/Atomo.cpp.s
+	cd /home/erick/projects/lector-cpmd/build/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/projects/lector-cpmd/Atomo.cpp -o CMakeFiles/tests.dir/__/Atomo.cpp.s
 
 # Object files for target tests
 tests_OBJECTS = \
@@ -97,8 +97,8 @@ tests/tests: tests/CMakeFiles/tests.dir/build.make
 tests/tests: utils/libutils.a
 tests/tests: /usr/local/lib/libCatch2.a
 tests/tests: tests/CMakeFiles/tests.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable tests"
-	cd /home/erick/code/lector-cpmd/build/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tests.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable tests"
+	cd /home/erick/projects/lector-cpmd/build/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tests.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 tests/CMakeFiles/tests.dir/build: tests/tests
@@ -106,10 +106,10 @@ tests/CMakeFiles/tests.dir/build: tests/tests
 .PHONY : tests/CMakeFiles/tests.dir/build
 
 tests/CMakeFiles/tests.dir/clean:
-	cd /home/erick/code/lector-cpmd/build/tests && $(CMAKE_COMMAND) -P CMakeFiles/tests.dir/cmake_clean.cmake
+	cd /home/erick/projects/lector-cpmd/build/tests && $(CMAKE_COMMAND) -P CMakeFiles/tests.dir/cmake_clean.cmake
 .PHONY : tests/CMakeFiles/tests.dir/clean
 
 tests/CMakeFiles/tests.dir/depend:
-	cd /home/erick/code/lector-cpmd/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/erick/code/lector-cpmd /home/erick/code/lector-cpmd/tests /home/erick/code/lector-cpmd/build /home/erick/code/lector-cpmd/build/tests /home/erick/code/lector-cpmd/build/tests/CMakeFiles/tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/erick/projects/lector-cpmd/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/erick/projects/lector-cpmd /home/erick/projects/lector-cpmd/tests /home/erick/projects/lector-cpmd/build /home/erick/projects/lector-cpmd/build/tests /home/erick/projects/lector-cpmd/build/tests/CMakeFiles/tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : tests/CMakeFiles/tests.dir/depend
 

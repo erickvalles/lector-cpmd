@@ -1,4 +1,4 @@
-# Install script for directory: /home/erick/code/lector-cpmd/tests
+# Install script for directory: /home/erick/projects/lector-cpmd/tests
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

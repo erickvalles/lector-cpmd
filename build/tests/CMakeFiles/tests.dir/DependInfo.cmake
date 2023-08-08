@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/erick/code/lector-cpmd/Atomo.cpp" "/home/erick/code/lector-cpmd/build/tests/CMakeFiles/tests.dir/__/Atomo.cpp.o"
-  "/home/erick/code/lector-cpmd/tests/test_calculaPosicionesPeriodicas.cpp" "/home/erick/code/lector-cpmd/build/tests/CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.o"
+  "/home/erick/projects/lector-cpmd/Atomo.cpp" "/home/erick/projects/lector-cpmd/build/tests/CMakeFiles/tests.dir/__/Atomo.cpp.o"
+  "/home/erick/projects/lector-cpmd/tests/test_calculaPosicionesPeriodicas.cpp" "/home/erick/projects/lector-cpmd/build/tests/CMakeFiles/tests.dir/test_calculaPosicionesPeriodicas.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -16,7 +16,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/erick/code/lector-cpmd/build/utils/CMakeFiles/utils.dir/DependInfo.cmake"
+  "/home/erick/projects/lector-cpmd/build/utils/CMakeFiles/utils.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

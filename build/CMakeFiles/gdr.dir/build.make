@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/erick/code/lector-cpmd
+CMAKE_SOURCE_DIR = /home/erick/projects/lector-cpmd
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/erick/code/lector-cpmd/build
+CMAKE_BINARY_DIR = /home/erick/projects/lector-cpmd/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/gdr.dir/depend.make
@@ -59,42 +59,42 @@ include CMakeFiles/gdr.dir/flags.make
 
 CMakeFiles/gdr.dir/gdr.cpp.o: CMakeFiles/gdr.dir/flags.make
 CMakeFiles/gdr.dir/gdr.cpp.o: ../gdr.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gdr.dir/gdr.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gdr.dir/gdr.cpp.o -c /home/erick/code/lector-cpmd/gdr.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gdr.dir/gdr.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gdr.dir/gdr.cpp.o -c /home/erick/projects/lector-cpmd/gdr.cpp
 
 CMakeFiles/gdr.dir/gdr.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gdr.dir/gdr.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/code/lector-cpmd/gdr.cpp > CMakeFiles/gdr.dir/gdr.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/projects/lector-cpmd/gdr.cpp > CMakeFiles/gdr.dir/gdr.cpp.i
 
 CMakeFiles/gdr.dir/gdr.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gdr.dir/gdr.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/code/lector-cpmd/gdr.cpp -o CMakeFiles/gdr.dir/gdr.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/projects/lector-cpmd/gdr.cpp -o CMakeFiles/gdr.dir/gdr.cpp.s
 
 CMakeFiles/gdr.dir/Atomo.cpp.o: CMakeFiles/gdr.dir/flags.make
 CMakeFiles/gdr.dir/Atomo.cpp.o: ../Atomo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gdr.dir/Atomo.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gdr.dir/Atomo.cpp.o -c /home/erick/code/lector-cpmd/Atomo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gdr.dir/Atomo.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gdr.dir/Atomo.cpp.o -c /home/erick/projects/lector-cpmd/Atomo.cpp
 
 CMakeFiles/gdr.dir/Atomo.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gdr.dir/Atomo.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/code/lector-cpmd/Atomo.cpp > CMakeFiles/gdr.dir/Atomo.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/projects/lector-cpmd/Atomo.cpp > CMakeFiles/gdr.dir/Atomo.cpp.i
 
 CMakeFiles/gdr.dir/Atomo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gdr.dir/Atomo.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/code/lector-cpmd/Atomo.cpp -o CMakeFiles/gdr.dir/Atomo.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/projects/lector-cpmd/Atomo.cpp -o CMakeFiles/gdr.dir/Atomo.cpp.s
 
 CMakeFiles/gdr.dir/utils/utils.cpp.o: CMakeFiles/gdr.dir/flags.make
 CMakeFiles/gdr.dir/utils/utils.cpp.o: ../utils/utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gdr.dir/utils/utils.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gdr.dir/utils/utils.cpp.o -c /home/erick/code/lector-cpmd/utils/utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gdr.dir/utils/utils.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gdr.dir/utils/utils.cpp.o -c /home/erick/projects/lector-cpmd/utils/utils.cpp
 
 CMakeFiles/gdr.dir/utils/utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gdr.dir/utils/utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/code/lector-cpmd/utils/utils.cpp > CMakeFiles/gdr.dir/utils/utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/erick/projects/lector-cpmd/utils/utils.cpp > CMakeFiles/gdr.dir/utils/utils.cpp.i
 
 CMakeFiles/gdr.dir/utils/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gdr.dir/utils/utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/code/lector-cpmd/utils/utils.cpp -o CMakeFiles/gdr.dir/utils/utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/erick/projects/lector-cpmd/utils/utils.cpp -o CMakeFiles/gdr.dir/utils/utils.cpp.s
 
 # Object files for target gdr
 gdr_OBJECTS = \
@@ -110,7 +110,7 @@ gdr: CMakeFiles/gdr.dir/Atomo.cpp.o
 gdr: CMakeFiles/gdr.dir/utils/utils.cpp.o
 gdr: CMakeFiles/gdr.dir/build.make
 gdr: CMakeFiles/gdr.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable gdr"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable gdr"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gdr.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -123,6 +123,6 @@ CMakeFiles/gdr.dir/clean:
 .PHONY : CMakeFiles/gdr.dir/clean
 
 CMakeFiles/gdr.dir/depend:
-	cd /home/erick/code/lector-cpmd/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/erick/code/lector-cpmd /home/erick/code/lector-cpmd /home/erick/code/lector-cpmd/build /home/erick/code/lector-cpmd/build /home/erick/code/lector-cpmd/build/CMakeFiles/gdr.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/erick/projects/lector-cpmd/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/erick/projects/lector-cpmd /home/erick/projects/lector-cpmd /home/erick/projects/lector-cpmd/build /home/erick/projects/lector-cpmd/build /home/erick/projects/lector-cpmd/build/CMakeFiles/gdr.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/gdr.dir/depend
 

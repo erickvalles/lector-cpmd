@@ -44,10 +44,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/erick/code/lector-cpmd
+CMAKE_SOURCE_DIR = /home/erick/projects/lector-cpmd
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/erick/code/lector-cpmd/build
+CMAKE_BINARY_DIR = /home/erick/projects/lector-cpmd/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -117,14 +117,14 @@ utils/clean: utils/CMakeFiles/utils.dir/clean
 CMakeFiles/gdr.dir/all:
 	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/depend
 	$(MAKE) -f CMakeFiles/gdr.dir/build.make CMakeFiles/gdr.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=5,6,7,8 "Built target gdr"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=5,6,7,8 "Built target gdr"
 .PHONY : CMakeFiles/gdr.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/gdr.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gdr.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles 0
 .PHONY : CMakeFiles/gdr.dir/rule
 
 # Convenience name for target.
@@ -144,14 +144,14 @@ CMakeFiles/gdr.dir/clean:
 CMakeFiles/angulos.dir/all:
 	$(MAKE) -f CMakeFiles/angulos.dir/build.make CMakeFiles/angulos.dir/depend
 	$(MAKE) -f CMakeFiles/angulos.dir/build.make CMakeFiles/angulos.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=1,2,3,4 "Built target angulos"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=1,2,3,4 "Built target angulos"
 .PHONY : CMakeFiles/angulos.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/angulos.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/angulos.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles 0
 .PHONY : CMakeFiles/angulos.dir/rule
 
 # Convenience name for target.
@@ -171,14 +171,14 @@ CMakeFiles/angulos.dir/clean:
 tests/CMakeFiles/tests.dir/all: utils/CMakeFiles/utils.dir/all
 	$(MAKE) -f tests/CMakeFiles/tests.dir/build.make tests/CMakeFiles/tests.dir/depend
 	$(MAKE) -f tests/CMakeFiles/tests.dir/build.make tests/CMakeFiles/tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=9,10,11 "Built target tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=9,10,11 "Built target tests"
 .PHONY : tests/CMakeFiles/tests.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/tests.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/tests.dir/rule
 
 # Convenience name for target.
@@ -198,14 +198,14 @@ tests/CMakeFiles/tests.dir/clean:
 utils/CMakeFiles/utils.dir/all:
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/depend
 	$(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/code/lector-cpmd/build/CMakeFiles --progress-num=12,13 "Built target utils"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erick/projects/lector-cpmd/build/CMakeFiles --progress-num=12,13 "Built target utils"
 .PHONY : utils/CMakeFiles/utils.dir/all
 
 # Build rule for subdir invocation for target.
 utils/CMakeFiles/utils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 utils/CMakeFiles/utils.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles 0
 .PHONY : utils/CMakeFiles/utils.dir/rule
 
 # Convenience name for target.

@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/erick/code/lector-cpmd/utils 
+CXX_INCLUDES = -I/home/erick/projects/lector-cpmd/utils 
 

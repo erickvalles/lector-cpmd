@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/erick/code/lector-cpmd
+CMAKE_SOURCE_DIR = /home/erick/projects/lector-cpmd
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/erick/code/lector-cpmd/build
+CMAKE_BINARY_DIR = /home/erick/projects/lector-cpmd/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/erick/code/lector-cpmd/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles /home/erick/code/lector-cpmd/build/utils/CMakeFiles/progress.marks
-	cd /home/erick/code/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/code/lector-cpmd/build/CMakeFiles 0
+	cd /home/erick/projects/lector-cpmd/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles /home/erick/projects/lector-cpmd/build/utils/CMakeFiles/progress.marks
+	cd /home/erick/projects/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erick/projects/lector-cpmd/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/erick/code/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/clean
+	cd /home/erick/projects/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/erick/code/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/preinstall
+	cd /home/erick/projects/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/erick/code/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/preinstall
+	cd /home/erick/projects/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/erick/code/lector-cpmd/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/erick/projects/lector-cpmd/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 utils/CMakeFiles/utils.dir/rule:
-	cd /home/erick/code/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/CMakeFiles/utils.dir/rule
+	cd /home/erick/projects/lector-cpmd/build && $(MAKE) -f CMakeFiles/Makefile2 utils/CMakeFiles/utils.dir/rule
 .PHONY : utils/CMakeFiles/utils.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ utils: utils/CMakeFiles/utils.dir/rule
 
 # fast build rule for target.
 utils/fast:
-	cd /home/erick/code/lector-cpmd/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
+	cd /home/erick/projects/lector-cpmd/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/build
 .PHONY : utils/fast
 
 utils.o: utils.cpp.o
@@ -131,7 +131,7 @@ utils.o: utils.cpp.o
 
 # target to build an object file
 utils.cpp.o:
-	cd /home/erick/code/lector-cpmd/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/utils.cpp.o
+	cd /home/erick/projects/lector-cpmd/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/utils.cpp.o
 .PHONY : utils.cpp.o
 
 utils.i: utils.cpp.i
@@ -140,7 +140,7 @@ utils.i: utils.cpp.i
 
 # target to preprocess a source file
 utils.cpp.i:
-	cd /home/erick/code/lector-cpmd/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/utils.cpp.i
+	cd /home/erick/projects/lector-cpmd/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/utils.cpp.i
 .PHONY : utils.cpp.i
 
 utils.s: utils.cpp.s
@@ -149,7 +149,7 @@ utils.s: utils.cpp.s
 
 # target to generate assembly for a file
 utils.cpp.s:
-	cd /home/erick/code/lector-cpmd/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/utils.cpp.s
+	cd /home/erick/projects/lector-cpmd/build && $(MAKE) -f utils/CMakeFiles/utils.dir/build.make utils/CMakeFiles/utils.dir/utils.cpp.s
 .PHONY : utils.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/erick/code/lector-cpmd/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/erick/projects/lector-cpmd/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

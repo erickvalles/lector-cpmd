@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/erick/code/lector-cpmd/Atomo.h
+/home/erick/projects/lector-cpmd/Atomo.h
 string
 -
 vector
@@ -14,9 +14,9 @@ vector
 map
 -
 
-/home/erick/code/lector-cpmd/utils/utils.cpp
+/home/erick/projects/lector-cpmd/utils/utils.cpp
 utils.h
-/home/erick/code/lector-cpmd/utils/utils.h
+/home/erick/projects/lector-cpmd/utils/utils.h
 cmath
 -
 iostream
@@ -29,16 +29,18 @@ iomanip
 -
 map
 -
+unordered_map
+-
 
-/home/erick/code/lector-cpmd/utils/utils.h
+/home/erick/projects/lector-cpmd/utils/utils.h
 vector
 -
 string
-/home/erick/code/lector-cpmd/utils/string
+/home/erick/projects/lector-cpmd/utils/string
 regex
-/home/erick/code/lector-cpmd/utils/regex
+/home/erick/projects/lector-cpmd/utils/regex
 ../Atomo.h
-/home/erick/code/lector-cpmd/Atomo.h
+/home/erick/projects/lector-cpmd/Atomo.h
 
 /usr/include/fftw3.h
 stdio.h

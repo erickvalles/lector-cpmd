@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/erick/code/lector-cpmd/Atomo.cpp" "/home/erick/code/lector-cpmd/build/CMakeFiles/gdr.dir/Atomo.cpp.o"
-  "/home/erick/code/lector-cpmd/gdr.cpp" "/home/erick/code/lector-cpmd/build/CMakeFiles/gdr.dir/gdr.cpp.o"
-  "/home/erick/code/lector-cpmd/utils/utils.cpp" "/home/erick/code/lector-cpmd/build/CMakeFiles/gdr.dir/utils/utils.cpp.o"
+  "/home/erick/projects/lector-cpmd/Atomo.cpp" "/home/erick/projects/lector-cpmd/build/CMakeFiles/gdr.dir/Atomo.cpp.o"
+  "/home/erick/projects/lector-cpmd/gdr.cpp" "/home/erick/projects/lector-cpmd/build/CMakeFiles/gdr.dir/gdr.cpp.o"
+  "/home/erick/projects/lector-cpmd/utils/utils.cpp" "/home/erick/projects/lector-cpmd/build/CMakeFiles/gdr.dir/utils/utils.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
