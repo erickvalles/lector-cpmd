@@ -23,7 +23,7 @@ using std::ifstream;
 * /usr/bin/g++ -O3 -g utils/utils.cpp utils/utils.h Atomo.cpp Atomo.h main.cpp -o main -lfftw3
 */
 
-void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc);
+void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc, float &r_min);
 
 int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, double boxSize);
 

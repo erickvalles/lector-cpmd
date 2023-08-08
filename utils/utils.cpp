@@ -8,6 +8,7 @@
 #include <iomanip>
 #include </usr/include/fftw3.h>
 #include <map>
+#include <unordered_map>
 
 struct Celda {
     std::vector<Atomo*> atomos;
@@ -465,7 +466,7 @@ float distanciaAtomos(Atomo a1, Atomo a2){
     return a1.distancia(a2.getPrx(),a2.getPry(),a2.getPrz());
 }
 
-void vecinosMejorada(vectr<Atomo> atomos, double r_min, double boxSize, double mitadCaja){
+void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double mitadCaja){
     int numCeldasPorDim = ceil(boxSize/r_min);
     std::vector<std::vector<std::vector<Celda>>> celdas(numCeldasPorDim, std::vector<std::vector<Celda>>(numCeldasPorDim, std::vector<Celda>(numCeldasPorDim)));
     for(auto& atomo : atomos) {
@@ -556,7 +557,7 @@ void vecinosMejorada(vectr<Atomo> atomos, double r_min, double boxSize, double m
             
             
         }
-        vecinosTriada.clear();
+        vecinos.clear();
         
     }
 
@@ -666,7 +667,31 @@ bool verificaVecindad(Atomo a1, Atomo a2, double r_min, double mitadCaja, double
 
 
 
-void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc, float r_min){
+void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc){
+    if(argc < 2){
+        // Es el tamaño de la caja de simulación que se utilizará
+        boxSize = 22.3797;
+        // Se pide el número de átomos que se utilizaron en la dimámica molecular
+        numeroAtomos = 300;
+        // Se pide el tamaño del histograma que se utilizará
+        tamHistograma = 512;
+        carpetaSalida = "/home/erick/data/salidas";
+        file = "/home/erick/data/Ge00Sb00Te100T823K.cpmd";//"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; Ge00Sb00Te100T823K.cpmd
+        //file = "out.xx";
+        opc = 1;
+        
+    }else{
+        boxSize = std::stod(argv[1]);
+        numeroAtomos = std::stoi(argv[2]);
+        tamHistograma = std::stoi(argv[3]);
+        file = argv[4];
+        carpetaSalida = argv[5];
+        opc = std::stoi(argv[6]);
+        
+    }
+}
+
+void obtenerArgumentosAng(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc, float r_min){
     if(argc < 2){
         // Es el tamaño de la caja de simulación que se utilizará
         boxSize = 22.3797;
