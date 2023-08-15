@@ -23,7 +23,7 @@ using std::ifstream;
 * /usr/bin/g++ -O3 -g utils/utils.cpp utils/utils.h Atomo.cpp Atomo.h main.cpp -o main -lfftw3
 */
 
-void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc, float &r_min);
+//void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc, float &r_min);
 
 int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, double boxSize);
 
@@ -40,9 +40,9 @@ int main(int argc, char **argv) {//recibir como args
     int opc;
     float r_min;
     
-    obtenerArgumentos(argc, argv, boxSize, numeroAtomos, tamHistograma, carpetaSalida, file, opc, r_min);
+    obtenerArgumentosAng(argc, argv, boxSize, numeroAtomos, tamHistograma, carpetaSalida, file, opc, r_min);
 
-    cout << "el directorio de salida es: "<<carpetaSalida << endl;
+    cout << "el directorio de salida para angulos es: "<<carpetaSalida << endl;
     cout << "el file a leer es: "<< file << endl;
     
    dist_angulos(numeroAtomos,carpetaSalida,file, boxSize);
@@ -105,6 +105,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
     std::cout << deltaAng << endl;
     vector<double> *histAngulos = {nullptr};
     double halfBox = boxSize/2;
+    double r_min = 3.2;
     histAngulos = new vector<double>(tamHistAngulos,0.0);
     // Se crea una variable que leerá todo un renglón del archivo
     string trayectoria;
@@ -165,7 +166,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
            //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
            //aquí debo llamar a la función que calcule la lista de vecinos
            //listaVecinos(*atomos,n_atoms,3.2,mitadCaja, boxSize, vecinos, histAngulos, deltaAng, trayectoria);
-           vecinosMejorada(atomos,r_min,boxSize, halfBox);
+           vecinosMejorada(*atomos,r_min,boxSize, halfBox);
            
            (*atomos).clear();
             n_atoms = 0;

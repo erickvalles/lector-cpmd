@@ -8,7 +8,7 @@
 #include <iomanip>
 #include </usr/include/fftw3.h>
 #include <map>
-#include <unordered_map>
+
 
 struct Celda {
     std::vector<Atomo*> atomos;
@@ -468,6 +468,7 @@ float distanciaAtomos(Atomo a1, Atomo a2){
 
 void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double mitadCaja){
     int numCeldasPorDim = ceil(boxSize/r_min);
+    double deltaAng = 180.0/500;
     std::vector<std::vector<std::vector<Celda>>> celdas(numCeldasPorDim, std::vector<std::vector<Celda>>(numCeldasPorDim, std::vector<Celda>(numCeldasPorDim)));
     for(auto& atomo : atomos) {
         int x = floor(atomo.getrx() / r_min);
@@ -487,7 +488,7 @@ void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double 
         {-1,  0,  1}, {0,  0,  1}, {1,  0,  1},
         {-1,  1,  1}, {0,  1,  1}, {1,  1,  1},
     };
-    std::unordered_map<Atomo, std::vector<Atomo>> listaVecinos;
+    std::map<Atomo, std::vector<Atomo>> listaVecinos;
     for(int i = 0; i < numCeldasPorDim; ++i) {
         for(int j = 0; j < numCeldasPorDim; ++j) {
             for(int k = 0; k < numCeldasPorDim; ++k) {
@@ -503,8 +504,8 @@ void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double 
 
                         for(auto& atomo2 : celda_vecina.atomos) {
                             if(atomo1 != atomo2) {
-                               if(verificaVecindad(atomo1, atomo2, r_min, mitadCaja, boxSize)){
-                                    listaVecinos[atomo1].push_back(atomo2);
+                               if(verificaVecindad(*atomo1, *atomo2, r_min, mitadCaja, boxSize)){
+                                    listaVecinos[*atomo1].push_back(*atomo2);
                                }
                             }
                         }
@@ -513,6 +514,7 @@ void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double 
             }
         }
     }
+    std::map<Atomo,vector<Atomo>>::iterator it;
 
     for(it=listaVecinos.begin(); it!=listaVecinos.end(); it++){
         Atomo atomoA = it->first;
@@ -541,7 +543,7 @@ void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double 
             //calcular el angulo entre los vectores v1 y v2
             double anguloRad = acos(productoPunto/(mrAB*mrCB));
             //convertir el angulo a grados
-            double anguloGrad = anguloRad*180/M_PI;
+            double anguloGrad = anguloRad*(180/M_PI);
             
             
             int pos = 0;
@@ -550,9 +552,9 @@ void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double 
             //imprimir la posicion en la que quedará
             //std::cout << "Pos = "<< anguloGrad << "/" << deltaAng <<"="<<pos << std::endl;
             //incrementar esa posicion en el histograma	
-            (*histAngulos)[pos]+=1;
+            //(*histAngulos)[pos]+=1;
             //imprimir cuantos elementos en esa posicion hay
-            //std::cout << "Histograma["<<pos<<"]="<<(*histAngulos)[pos]<<std::endl;
+            std::cout << "Histograma["<<pos<<"]="<<pos<<std::endl;
             
             
             
