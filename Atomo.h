@@ -60,7 +60,7 @@ public:
     double absolute();
     //obtain a new vector from the difference between two atoms
     vector<double> vectorDifference(Atomo &b);
-    //std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos);
+    
 
 };
 

@@ -23,17 +23,13 @@ void calculaPosicionesPeriodicas(double *posPeriodicas,const double rx, const do
 
 double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox){
     double residuo = fmod(posicion,boxSize);
-    if(residuo > halfBox){
+    if (residuo > halfBox) {
         residuo -= boxSize;
-    }else if(residuo < -halfBox){
+    } else if (residuo < -halfBox) {
         residuo += boxSize;
     }
-    if (posicion >= halfBox) {
-        posicion -= boxSize;
-    } else if (posicion < -halfBox) {
-        posicion += boxSize;
-    }
-    return posicion;
+
+    return residuo;
 }
 
 /*double evaluaCajaRecursivo(double posicion, double boxSize, double halfBox){
@@ -466,17 +462,25 @@ float distanciaAtomos(Atomo a1, Atomo a2){
     return a1.distancia(a2.getPrx(),a2.getPry(),a2.getPrz());
 }
 
-void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double mitadCaja){
+void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double mitadCaja,vector<double> *histAngulos){
     int numCeldasPorDim = ceil(boxSize/r_min);
     double deltaAng = 180.0/500;
     std::vector<std::vector<std::vector<Celda>>> celdas(numCeldasPorDim, std::vector<std::vector<Celda>>(numCeldasPorDim, std::vector<Celda>(numCeldasPorDim)));
-    for(auto& atomo : atomos) {
-        int x = floor(atomo.getrx() / r_min);
-        int y = floor(atomo.getry() / r_min);
-        int z = floor(atomo.getrz() / r_min);
+
+    for(Atomo& atomo : atomos) {
+        int x = floor(atomo.getPrx() / r_min);
+        int y = floor(atomo.getPry() / r_min);
+        int z = floor(atomo.getPrz() / r_min);
+        std::cout << "Antes: x=" << x << ", y=" << y << ", z=" << z << std::endl;
+        x = (x + numCeldasPorDim) % numCeldasPorDim;
+        y = (y + numCeldasPorDim) % numCeldasPorDim;
+        z = (z + numCeldasPorDim) % numCeldasPorDim;
+        std::cout << "Despues: x=" << x << ", y=" << y << ", z=" << z << std::endl;
+        int otro = 0;
         celdas[x][y][z].atomos.push_back(&atomo);
     }
 
+//183
     std::vector<std::vector<int>> offsets = {
         {-1, -1, -1}, {0, -1, -1}, {1, -1, -1},
         {-1,  0, -1}, {0,  0, -1}, {1,  0, -1},
@@ -488,25 +492,30 @@ void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double 
         {-1,  0,  1}, {0,  0,  1}, {1,  0,  1},
         {-1,  1,  1}, {0,  1,  1}, {1,  1,  1},
     };
-    std::map<Atomo, std::vector<Atomo>> listaVecinos;
+        std::map<Atomo*, std::vector<Atomo*>> listaVecinos;
+
     for(int i = 0; i < numCeldasPorDim; ++i) {
         for(int j = 0; j < numCeldasPorDim; ++j) {
             for(int k = 0; k < numCeldasPorDim; ++k) {
                 Celda& celda = celdas[i][j][k];
 
-                for(auto& atomo1 : celda.atomos) {
+                for(Atomo* atomo1 : celda.atomos) {
                     for(auto& offset : offsets) {
                         int ii = (i + offset[0] + numCeldasPorDim) % numCeldasPorDim;
                         int jj = (j + offset[1] + numCeldasPorDim) % numCeldasPorDim;
                         int kk = (k + offset[2] + numCeldasPorDim) % numCeldasPorDim;
 
-                        Celda& celda_vecina = celdas[ii][jj][kk];
+                        if (ii >= 0 && ii < numCeldasPorDim && 
+                            jj >= 0 && jj < numCeldasPorDim && 
+                            kk >= 0 && kk < numCeldasPorDim) {
+                            Celda& celda_vecina = celdas[ii][jj][kk];
 
-                        for(auto& atomo2 : celda_vecina.atomos) {
-                            if(atomo1 != atomo2) {
-                               if(verificaVecindad(*atomo1, *atomo2, r_min, mitadCaja, boxSize)){
-                                    listaVecinos[*atomo1].push_back(*atomo2);
-                               }
+                            for(Atomo* atomo2 : celda_vecina.atomos) {
+                                if(atomo1->getId() != atomo2->getId()) {
+                                    if(verificaVecindad(*atomo1, *atomo2, r_min, mitadCaja, boxSize)){
+                                        listaVecinos[atomo1].push_back(atomo2);
+                                    }
+                                }
                             }
                         }
                     }
@@ -516,22 +525,24 @@ void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double 
     }
     std::map<Atomo,vector<Atomo>>::iterator it;
 
-    for(it=listaVecinos.begin(); it!=listaVecinos.end(); it++){
-        Atomo atomoA = it->first;
+    for(auto& pair : listaVecinos){
+        Atomo* atomoA = pair.first;
+        auto& vecinos = pair.second;
+        //Atomo atomoA = it->first;
         //obtener los vecinos de a1
-        int id = atomoA.getId();
+        int id = atomoA->getId();
         //vector<Atomo> vecinosTriada = ordenarPorDistancia(it->second);
-        vector<Atomo> vecinos = it->second;
+        //vector<Atomo> vecinos = it->second;
         //std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
         for (int i=0; i < vecinos.size() -1 ; i++){
             //iterar después del atomo actual
-            Atomo atomoB = vecinos[i];
-            Atomo atomoC = vecinos[i + 1];
+            Atomo* atomoB = vecinos[i];
+            Atomo* atomoC = vecinos[i + 1];
 
-            std::cout << "Base = "<< id << "vecinos" << atomoB.getId() <<"    "<< atomoC.getId() << std::endl;
+            std::cout << "Base = "<< id << "vecinos" << atomoB->getId() <<"    "<< atomoC->getId() << std::endl;
             
-            vector<double> rAB = atomoA.vectorDifference(atomoB);
-            vector<double> rCB = atomoC.vectorDifference(atomoB);
+            vector<double> rAB = atomoA->vectorDifference(*atomoB);
+            vector<double> rCB = atomoC->vectorDifference(*atomoB);
             
                 
             //calcular el producto punto de los vectores v1 y v2
@@ -552,7 +563,7 @@ void vecinosMejorada(vector<Atomo> atomos, double r_min, double boxSize, double 
             //imprimir la posicion en la que quedará
             //std::cout << "Pos = "<< anguloGrad << "/" << deltaAng <<"="<<pos << std::endl;
             //incrementar esa posicion en el histograma	
-            //(*histAngulos)[pos]+=1;
+            (*histAngulos)[pos]+=1;
             //imprimir cuantos elementos en esa posicion hay
             std::cout << "Histograma["<<pos<<"]="<<pos<<std::endl;
             
@@ -590,56 +601,47 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
     std::map<Atomo,vector<Atomo>>::iterator it;
     std::ofstream problematicos;
     std::ofstream probs;
-    problematicos.open("/home/erick/data/salidas/input_problematicas.txt");
+    //problematicos.open("/home/erick/data/salidas/input_problematicas.txt");
     //probs.open("/home/erick/data/salidas/reduced_problematics.txt");
     for(it=vecinos.begin(); it!=vecinos.end(); it++){
-        Atomo a1 = it->first;
+        Atomo atomoA = it->first;
         //obtener los vecinos de a1
-        int id = a1.getId();
+        int id = atomoA.getId();
         //vector<Atomo> vecinosTriada = ordenarPorDistancia(it->second);
-        vector<Atomo> vecinosTriada = it->second;
+        vector<Atomo> vecinos = it->second;
         //std::cout << "Atomo " << it->first.getId() << " tiene " << it->second.size() << " vecinos" << std::endl;
-        for (int i=0; i<vecinosTriada.size(); i++){
+        for (int i=0; i<vecinos.size() -1; i++){
             //iterar después del atomo actual
-            Atomo vFijo = vecinosTriada[i];
-            vector<double> v1 = a1.vectorDifference(vFijo);
-            
-            for(int j=i+1; j<vecinosTriada.size(); j++){
+            Atomo atomoB = vecinos[i];
+            Atomo atomoC = vecinos[i+1];
+
+            //std::cout << "Base = "<< id << "vecinos" << atomoB.getId() <<"    "<< atomoC.getId() << std::endl;
+            //comparar distancias y obtener el central aquí
+            double anguloGrad = anguloConAtomoMasCercano(atomoA,atomoB,atomoC);
+            problematicos << atomoA.getId() <<"  "<< atomoB.getId() <<" "<<atomoC.getId() << "   "<<anguloGrad<< std::endl; 
+            if(anguloGrad < 12 && anguloGrad > 10){
                 
-                Atomo a2 = vecinosTriada[j];
-                //std::cout << "i: "<< a1.getId() << "j: " << vFijo.getId() <<"k: "<< a2.getId()<< std::endl;
-                vector<double> v2 = a1.vectorDifference(a2);
-                
-                //calcular el producto punto de los vectores v1 y v2
-                double productoPunto = v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
-                //calcular el modulo del vector v1
-                double moduloV1 = sqrt(v1[0]*v1[0] + v1[1]*v1[1] + v1[2]*v1[2]);
-                //calcular el modulo del vector v2
-                double moduloV2 = sqrt(v2[0]*v2[0] + v2[1]*v2[1] + v2[2]*v2[2]);
-                //calcular el angulo entre los vectores v1 y v2
-                double anguloRad = acos(productoPunto/(moduloV1*moduloV2));
-                //convertir el angulo a grados
-                double anguloGrad = anguloRad*180/M_PI;
-                problematicos << a1.getId() <<"  "<< vFijo.getId() <<" "<<a2.getId() << "   "<<anguloGrad<< std::endl; 
-                if(anguloGrad < 12 && anguloGrad > 10){
-                    //std::cout << trayectoria << std::endl;
-                   // std::cout << "periodicas" << a1.getPrx() <<" " << a2.getPrx() << std::endl;
-                    //probs << trayectoria << std::endl;                    
-                }
-                int pos = 0;
-                
-                pos = anguloGrad/deltaAng;
-                //imprimir la posicion en la que quedará
-                //std::cout << "Pos = "<< anguloGrad << "/" << deltaAng <<"="<<pos << std::endl;
-                //incrementar esa posicion en el histograma	
-                (*histAngulos)[pos]+=1;
-                //imprimir cuantos elementos en esa posicion hay
-                //std::cout << "Histograma["<<pos<<"]="<<(*histAngulos)[pos]<<std::endl;
+                std::cout << "Problema aqui" << std::endl;
+                std::cout << atomoA.enviarMensaje() << std::endl;
+                std::cout << atomoB.enviarMensaje() << std::endl;
+                std::cout << atomoC.enviarMensaje() << std::endl;
+                 //std::cout << "periodicas" << atomoA.getPrx() <<" " << atomoB.getPrx() << std::endl;
+                //probs << trayectoria << std::endl;                    
             }
+            int pos = 0;
+                
+            pos = anguloGrad/deltaAng;
+            //imprimir la posicion en la que quedará
+            //std::cout << "Pos = "<< anguloGrad << "/" << deltaAng <<"="<<pos << std::endl;
+            //incrementar esa posicion en el histograma	
+            (*histAngulos)[pos]+=1;
+            //imprimir cuantos elementos en esa posicion hay
+            //std::cout << "Histograma["<<pos<<"]="<<(*histAngulos)[pos]<<std::endl;
+            
             
             
         }
-        vecinosTriada.clear();
+        vecinos.clear();
         
     }
     problematicos.close();
@@ -667,6 +669,26 @@ bool verificaVecindad(Atomo a1, Atomo a2, double r_min, double mitadCaja, double
     return esVecino;
 }
 
+double calculaAngulo(Atomo &atomoCentral, Atomo &atomoB, Atomo &atomoC){
+
+        vector<double> rAB = atomoCentral.vectorDifference(atomoB);
+        vector<double> rAC = atomoCentral.vectorDifference(atomoC);
+            
+                
+            //calcular el producto punto de los vectores v1 y v2
+        double productoPunto = rAB[0]*rAC[0] + rAB[1]*rAC[1] + rAB[2]*rAC[2];
+            //calcular el modulo del vector v1
+        double mrAB = sqrt(rAB[0]*rAB[0] + rAB[1]*rAB[1] + rAB[2]*rAB[2]);
+            //calcular el modulo del vector v2
+        double mrAC = sqrt(rAC[0]*rAC[0] + rAC[1]*rAC[1] + rAC[2]*rAC[2]);
+            //calcular el angulo entre los vectores v1 y v2
+        double anguloRad = acos(productoPunto/(mrAB*mrAC));
+            //convertir el angulo a grados
+        double anguloGrad = anguloRad*180/M_PI;
+        
+        return anguloGrad;
+}
+
 
 
 void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc){
@@ -690,6 +712,36 @@ void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos
         carpetaSalida = argv[5];
         opc = std::stoi(argv[6]);
         
+    }
+}
+
+double distanciaEntreAtomos(Atomo &a, Atomo &b){
+    
+    return a.distancia(b.getPrx(),b.getPry(),b.getPrz());
+}
+
+double anguloConAtomoMasCercano(Atomo &a, Atomo &b, Atomo &c) {
+    double distanciaAB = distanciaEntreAtomos(a, b);
+    double distanciaAC = distanciaEntreAtomos(a, c);
+    double distanciaBC = distanciaEntreAtomos(b, c);
+
+    double distanciaTotalA = distanciaAB + distanciaAC;
+    double distanciaTotalB = distanciaAB + distanciaBC;
+    double distanciaTotalC = distanciaAC + distanciaBC;
+    
+    /*std::cout << "Distancia A" << distanciaTotalA<<std::endl;
+    std::cout << "Distancia B" << distanciaTotalB<<std::endl;
+    std::cout << "Distancia C" << distanciaTotalC<<std::endl;*/
+    // Devuelve el átomo con la menor distancia total.
+    if (distanciaTotalA <= distanciaTotalB && distanciaTotalA <= distanciaTotalC) {
+       // std::cout << "Central A"<<std::endl;
+        return calculaAngulo(a,b,c);
+    } else if (distanciaTotalB <= distanciaTotalA && distanciaTotalB <= distanciaTotalC) {
+       // std::cout << "Central B"<<std::endl;
+        return calculaAngulo(b,a,c);
+    } else {
+      //  std::cout << "Central C"<<std::endl;
+        return calculaAngulo(c,a,b);
     }
 }
 

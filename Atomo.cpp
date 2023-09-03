@@ -10,7 +10,7 @@
 
 
 std::string Atomo::enviarMensaje(){
-    return "Listo";
+    return "ID: "+std::to_string(this->getId())+"prx: "+std::to_string(this->prx)+" pry:"+std::to_string(this->pry)+" prz"+std::to_string(this->prz);
 }
 
 void Atomo::setEspecie(int especie) {
@@ -82,17 +82,13 @@ vector <double> Atomo::vectorDifference(Atomo &b){
 
 
 double Atomo::distancia(double x, double y, double z){
-    double dif_x = x-this->rx;
-    double dif_y = y-this->ry;
-    double dif_z = z-this->rz;
+    double dif_x = x-this->prx;
+    double dif_y = y-this->pry;
+    double dif_z = z-this->prz;
     double suma_cuadrados = (dif_x*dif_x)+(dif_y*dif_y)+(dif_z*dif_z);
     double dist = sqrt(suma_cuadrados);
     return dist;
 }
-/*
-std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos){
-    vector <Atomo> atomos_copy = vecinos;
-    std::sort(atomos_copy.begin(),atomos_copy.end());
-    return atomos_copy;
-}*/
+
+
 
