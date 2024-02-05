@@ -116,13 +116,13 @@ int main(int argc, char **argv) {//recibir como args
         //Sirve para identificar qué tipo de átomo estamos utilizando
         atomo.setEspecie(1);
         //Se crea un arreglo de doubles que almacenará las posiciones periódicas para el átomo
-        //double periodics[3] = {0.0,0.0,0.0};
+        double periodics[3] = {0.0,0.0,0.0};
         /*
          * Se llama al método que calcula las posiciones periódicas, se le pasan las posiciones en x,y,z, el tamaño de la caja
          * y la mitad de la caja para calcularlas
          * */
         // cout << "estoy en la trayectoria " << trayectorias << " positions_:  x"<< atomo.getrx()  << "y:"<< atomo.getry() << "z:" <<atomo.getrz() << endl;
-        //calculaPosicionesPeriodicas(periodics, atomo.getrx(), atomo.getry(), atomo.getrz(), boxSize,mitadCaja);
+        calculaPosicionesPeriodicas(periodics, atomo.getrx(), atomo.getry(), atomo.getrz(), boxSize,mitadCaja);
         
         //out_posiciones << std::setprecision(20) << "         "<< periodics[0] << "        " << periodics[1] <<"     " << periodics[2]<<endl;
         //Posiciones periódicas ok!!
@@ -132,7 +132,7 @@ int main(int argc, char **argv) {//recibir como args
          * */
          
          
-        //atomo.setPeriodics(periodics[0],periodics[1],periodics[2]);
+        atomo.setPeriodics(periodics[0],periodics[1],periodics[2]);
 
         /*
          * Una vez que tenemos el átomo con las pocisiones periódicas*/
