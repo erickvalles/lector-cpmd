@@ -811,7 +811,7 @@ void obtenerArgumentosAng(int argc, char **argv, double &boxSize, int &numeroAto
         file = "/home/erick/data/Ge00Sb00Te100T823K.cpmd"; //"/home/erick/protocolo/copia.cpmd";////"/home/erick/protocolo/TRAJECTORY_00_Te_T823K.cpmd"; Ge00Sb00Te100T823K.cpmd
         // file = "out.xx";
         opc = 1;
-        r_min = 3.2;
+        r_min = 3.5;
     }
     else
     {

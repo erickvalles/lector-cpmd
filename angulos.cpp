@@ -165,7 +165,7 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
         if(n_atoms==numeroAtomos){
            //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
            //aquí debo llamar a la función que calcule la lista de vecinos
-           listaVecinos(*atomos,n_atoms,3.2,mitadCaja, boxSize, vecinos, histAngulos, deltaAng, trayectoria);
+           listaVecinos(*atomos,n_atoms,3.5,mitadCaja, boxSize, vecinos, histAngulos, deltaAng, trayectoria);
            //vecinosMejorada(*atomos,r_min,boxSize, halfBox,histAngulos);
            
            (*atomos).clear();

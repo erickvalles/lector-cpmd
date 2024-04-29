@@ -276,7 +276,7 @@ int main(int argc, char **argv) {//recibir como args
      * */
     double r_max = delta*16*tamHistograma;
     cout << "r max es: "<<r_max << endl;
-     
+    
     double delta_k = (2*M_PI)/r_max;
     
     std::cout << "el k_minimo es: "<< delta_k << endl;
