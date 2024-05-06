@@ -772,14 +772,10 @@ double anguloConAtomoMasCercano(Atomo &a, Atomo &b, Atomo &c)
     double distanciaAC = distanciaEntreAtomos(a, c);
     double distanciaBC = distanciaEntreAtomos(b, c);
 
+
     double distanciaTotalA = distanciaAB + distanciaAC;
     double distanciaTotalB = distanciaAB + distanciaBC;
     double distanciaTotalC = distanciaAC + distanciaBC;
-
-    /*std::cout << "Distancia A" << distanciaTotalA<<std::endl;
-    std::cout << "Distancia B" << distanciaTotalB<<std::endl;
-    std::cout << "Distancia C" << distanciaTotalC<<std::endl;*/
-    // Devuelve el átomo con la menor distancia total.
     if (distanciaTotalA <= distanciaTotalB && distanciaTotalA <= distanciaTotalC)
     {
         // std::cout << "Central A"<<std::endl;
@@ -795,7 +791,10 @@ double anguloConAtomoMasCercano(Atomo &a, Atomo &b, Atomo &c)
         //  std::cout << "Central C"<<std::endl;
         return calculaAngulo(c, a, b);
     }
+    
 }
+
+
 
 void obtenerArgumentosAng(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc, float r_min)
 {
