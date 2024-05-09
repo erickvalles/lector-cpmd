@@ -154,8 +154,8 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
         /*
          * Como se pasó el arreglo periodics por referencia, podemos obtener las posiciones perióicas del mismo arreglo que mandamos
          * */
-         
-         
+        
+        
         atomo.setPeriodics(periodics[0],periodics[1],periodics[2]);
         out_posiciones << std::setprecision(20) << "         "<< periodics[0] << "        " << periodics[1] <<"     " << periodics[2]<<endl;
         /*
@@ -163,13 +163,13 @@ int dist_angulos(int numeroAtomos, std::string carpetaSalida, std::string file, 
         (*atomos).push_back(atomo);
         n_atoms++;
         if(n_atoms==numeroAtomos){
-           //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
-           //aquí debo llamar a la función que calcule la lista de vecinos
-           listaVecinos(*atomos,n_atoms,r_min,mitadCaja, boxSize, vecinos, histAngulos, deltaAng, trayectoria);
-           //vecinosMejorada(*atomos,r_min,boxSize, halfBox,histAngulos);
-           
-           (*atomos).clear();
-            n_atoms = 0;
+        //cout << "ya hay " << numeroAtomos << "hay que llamar a la funcion  \n" << endl;
+        //aquí debo llamar a la función que calcule la lista de vecinos
+        listaVecinos(*atomos,n_atoms,r_min,mitadCaja, boxSize, vecinos, histAngulos, deltaAng, trayectoria);
+        //vecinosMejorada(*atomos,r_min,boxSize, halfBox,histAngulos);
+        
+        (*atomos).clear();
+        n_atoms = 0;
 
         }
         

@@ -661,18 +661,9 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
 
             // std::cout << "Base = "<< id << "vecinos" << atomoB.getId() <<"    "<< atomoC.getId() << std::endl;
             // comparar distancias y obtener el central aquí
-            double anguloGrad = anguloConAtomoMasCercano(atomoA, atomoB, atomoC);
-            problematicos << atomoA.getId() << "  " << atomoB.getId() << " " << atomoC.getId() << "   " << anguloGrad << std::endl;
-            if (anguloGrad < 12 && anguloGrad > 10)
-            {
-
-                std::cout << "Problema aqui" << std::endl;
-                std::cout << atomoA.enviarMensaje() << std::endl;
-                std::cout << atomoB.enviarMensaje() << std::endl;
-                std::cout << atomoC.enviarMensaje() << std::endl;
-                // std::cout << "periodicas" << atomoA.getPrx() <<" " << atomoB.getPrx() << std::endl;
-                // probs << trayectoria << std::endl;
-            }
+            double anguloGrad = anguloConAtomoMasCercano(atomoA, atomoB, atomoC, boxSize);
+            //problematicos << atomoA.getId() << "  " << atomoB.getId() << " " << atomoC.getId() << "   " << anguloGrad << std::endl;
+            
             int pos = 0;
 
             pos = anguloGrad / deltaAng;
@@ -692,6 +683,8 @@ void listaVecinos(vector<Atomo> atomos, int n_atomos, float r_min, double mitadC
 bool verificaVecindad(Atomo a1, Atomo a2, double r_min, double mitadCaja, double boxSize)
 {
     double distancias_comp[3] = {0, 0, 0};
+    atomoImagen(a1, boxSize);
+    atomoImagen(a2, boxSize);
     calcula_dist_componentes(distancias_comp, a1, a2, boxSize, mitadCaja);
 
     double distancia2 = calculaDistancia(distancias_comp);
@@ -709,13 +702,37 @@ bool verificaVecindad(Atomo a1, Atomo a2, double r_min, double mitadCaja, double
         {
             esVecino = false;
         }
+    }else{
+        //verificar si la imagen más cercana es vecina
+        double distancias_comp[3] = {0, 0, 0};
+        atomoImagen(a1, boxSize);
+        atomoImagen(a2, boxSize);
+        calcula_dist_componentes(distancias_comp, a1, a2, boxSize, mitadCaja);
+        if (distancia < r_min)
+        {
+            esVecino = true;
+            std::cout << "Vecino por imagen" << std::endl;
+        }
+        else
+        {
+            esVecino = false;
+        }
     }
 
     return esVecino;
 }
 
-double calculaAngulo(Atomo &atomoCentral, Atomo &atomoB, Atomo &atomoC)
+double calculaAngulo(Atomo &atomoCentral, Atomo &atomoB, Atomo &atomoC, double boxSize)
 {
+    //calcular la imagen más cercana del átomo b y c
+    /*double distancias_comp[3] = {0, 0, 0};
+    calcula_dist_componentes(distancias_comp,atomoCentral,atomoB,boxSize,mitadCaja);
+    double distancia2 = calculaDistancia(distancias_comp);
+    double distancia = sqrt(distancia2);*/
+
+    atomoImagen(atomoCentral, boxSize);
+    atomoImagen(atomoB, boxSize);
+    atomoImagen(atomoC, boxSize);
 
     vector<double> rAB = atomoCentral.vectorDifference(atomoB);
     vector<double> rAC = atomoCentral.vectorDifference(atomoC);
@@ -732,6 +749,21 @@ double calculaAngulo(Atomo &atomoCentral, Atomo &atomoB, Atomo &atomoC)
     double anguloGrad = anguloRad * 180 / M_PI;
 
     return anguloGrad;
+}
+
+void atomoImagen(Atomo &atomo, double boxSize)
+{
+    atomo.setPeriodics(WrapInBox(atomo.getPrx(), boxSize), WrapInBox(atomo.getPry(), boxSize), WrapInBox(atomo.getPrz(), boxSize));
+}
+
+double WrapInBox(double x, double boxSize)
+{
+    if (x >= boxSize*.5){
+        x -= boxSize;
+    }else if(x < -boxSize*.5){
+        x += boxSize;
+    }
+    return x;
 }
 
 void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc)
@@ -766,7 +798,7 @@ double distanciaEntreAtomos(Atomo &a, Atomo &b)
     return a.distancia(b.getPrx(), b.getPry(), b.getPrz());
 }
 
-double anguloConAtomoMasCercano(Atomo &a, Atomo &b, Atomo &c)
+double anguloConAtomoMasCercano(Atomo &a, Atomo &b, Atomo &c, double boxSize)
 {
     double distanciaAB = distanciaEntreAtomos(a, b);
     double distanciaAC = distanciaEntreAtomos(a, c);
@@ -779,17 +811,17 @@ double anguloConAtomoMasCercano(Atomo &a, Atomo &b, Atomo &c)
     if (distanciaTotalA <= distanciaTotalB && distanciaTotalA <= distanciaTotalC)
     {
         // std::cout << "Central A"<<std::endl;
-        return calculaAngulo(a, b, c);
+        return calculaAngulo(a, b, c,boxSize);
     }
     else if (distanciaTotalB <= distanciaTotalA && distanciaTotalB <= distanciaTotalC)
     {
         // std::cout << "Central B"<<std::endl;
-        return calculaAngulo(b, a, c);
+        return calculaAngulo(b, a, c, boxSize);
     }
     else
     {
         //  std::cout << "Central C"<<std::endl;
-        return calculaAngulo(c, a, b);
+        return calculaAngulo(c, a, b, boxSize);
     }
     
 }

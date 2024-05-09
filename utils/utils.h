@@ -48,7 +48,9 @@ bool verificaVecindad(Atomo a1, Atomo a2, double r_min, double mitadCaja, double
 void obtenerArgumentosAng(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc, float r_min);
 void obtenerArgumentos(int argc, char **argv, double &boxSize, int &numeroAtomos, int &tamHistograma, std::string &carpetaSalida, std::string &file, int &opc);
 double distanciaEntreAtomos(Atomo &a, Atomo &b);
-double anguloConAtomoMasCercano(Atomo &a, Atomo &b, Atomo &c);
+void atomoImagen(Atomo &a, double boxSize);
+double anguloConAtomoMasCercano(Atomo &a, Atomo &b, Atomo &c, double boxSize);
+double WrapInBox(double x, double boxSize);
 double calculaAngulo(Atomo &atomoCentral, Atomo &atomoB, Atomo &atomoC);
 //std::vector<Atomo> ordenarPorDistancia(std::vector<Atomo> vecinos);
 #endif //CPF_UTILS_H

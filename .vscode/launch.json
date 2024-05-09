@@ -27,7 +27,7 @@
       "stopAtEntry": false,
       "externalConsole": false,
       "cwd": "/home/erick/code/lector-cpmd",
-      "program": "/home/erick/code/lector-cpmd/angulos",
+      "program": "/home/erick/code/lector-cpmd/build/angulos",
       "MIMode": "gdb",
       "miDebuggerPath": "/usr/bin/gdb",
       "setupCommands": [
